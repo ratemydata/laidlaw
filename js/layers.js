@@ -28,8 +28,6 @@ function loadLayer(url, layerName){
 				} // end of the inner function
 			}); // end of the ajax request
 	} // end check if the layer already loaded
-
-
 }
 
 function layerExists(layerName){
@@ -58,11 +56,10 @@ function removeLayer(layerName) {
 
       // remove the layer from the array
       mapLayers.splice(i,1);  
-      listLayers();
 	  // don't continue the loop as we now have 1 less element in the array which means // that when we try to get the last element it won't be there any more
   	 break; 
     }
-  }
+  } // end loop around the list of layers
 }
 
 
