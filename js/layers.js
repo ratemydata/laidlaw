@@ -21,7 +21,7 @@ function loadLayer(url, layerName){
 
 		    		// add the JSON layer onto the map - it will appear using the default icons
 		    		let newLayer = L.geoJson(result).addTo(mymap);
-		    		mapLayers.push(newLayer);
+		    		mapLayers.push({layer:newLayer, name:"earthquakes"});
 		    		// change the map zoom so that all the data is shown
 		    		mymap.fitBounds(newLayer.getBounds());
 				} // end of the inner function
@@ -32,9 +32,9 @@ function loadLayer(url, layerName){
 }
 
 function layerExists(layerName){
-	  // first check if the thing is loaded already
+  // first check if the thing is loaded already
   for (let i=0;i<mapLayers.length ;i++){
-    if (mapLayers[i].layerName == layerName){
+    if (mapLayers[i].name == layerName){
       console.log("found "+ layerName);
       return true;
     }
@@ -45,9 +45,15 @@ function layerExists(layerName){
 
 function removeLayer(layerName) {
 	// remove a layer from the map	
+	layerName = "earthquakes";
   for (let i=0;i<mapLayers.length ;i++){
-    if (mapLayers[i].layerName == layerName){
+    if (mapLayers[i].name == layerName){
       console.log("removing layer "+ layerName);
+
+      // remove the layer from the map
+      mymap.removeLayer(mapLayers[i].layer);
+
+      // remove the layer from the array
       mapLayers.splice(i,1);  
 	  // don't continue the loop as we now have 1 less element in the array which means // that when we try to get the last element it won't be there any more
   	 break; 
@@ -61,7 +67,7 @@ function listLayers() {
   console.log("*********************************");
   console.log("********Current Layers *********");
   for (let i=0;i<mapLayers.length;i++){
-    console.log(mapLayers[i].layerName);
+    console.log(mapLayers[i].name);
   }
   console.log("*********************************");
 
