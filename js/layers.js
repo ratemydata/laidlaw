@@ -47,7 +47,6 @@ function layerExists(layerName){
 
 function removeLayer(layerName) {
 	// remove a layer from the map	
-	layerName = "earthquakes";
   for (let i=0;i<mapLayers.length ;i++){
     if (mapLayers[i].name == layerName){
       console.log("removing layer "+ layerName);
