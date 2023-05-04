@@ -36,6 +36,7 @@ function layerExists(layerName){
   for (let i=0;i<mapLayers.length ;i++){
     if (mapLayers[i].name == layerName){
       console.log("found "+ layerName);
+      alert ("Layer "+layerName + " already loaded");
       return true;
     }
   }
