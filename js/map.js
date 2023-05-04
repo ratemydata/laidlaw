@@ -11,16 +11,10 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 } // end loadMap
 
- 
-function refreshMap(){
-    // needs a timeout to allow the new size of the div to settle
-    setTimeout(function(){ mymap.invalidateSize()}, 400);
-}
-
-
+// makes sure that the map is only loaded once the page has completely loaded
+// i.e. the div for the map must exist before the code tries to load the map
 document.addEventListener('DOMContentLoaded', function() {
   console.log("listener domcontentloaded");
-//  console.log(document.getElementById("assetDataWrapper").style.zIndex);
   loadMap();
 }, false);
 

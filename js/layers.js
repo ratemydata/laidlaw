@@ -1,0 +1,67 @@
+"use strict";
+let mapLayers = []; // array - stores the layers currently on the map
+
+
+
+function loadLayer(url, layerName){
+	// add a given layer to the map with the given name
+	// assumes that the data source is geoJSON
+	// url can refer to an external site or
+	// if the data is stored on the same site, the code will assume that the data is in the
+	// data subdirectory
+
+	// check if the layer is loaded
+	if (!layerExists()) {
+			// we use AJAX to get the data
+			// that ensures that the map doesn't try to load the data before it has been returned to the browser from 
+			// wherever it is stored
+			 $.ajax({url: layerURL, crossDomain: true,success: function(result){
+			 	console.log(result); // check that the data is correct
+
+		    		// add the JSON layer onto the map - it will appear using the default icons
+		    		let newLayer = L.geoJson(result).addTo(mymap);
+		    		mapLayers.push(newLayer);
+		    		// change the map zoom so that all the data is shown
+		    		mymap.fitBounds(newLayer.getBounds());
+				} // end of the inner function
+			}); // end of the ajax request
+	} // end check if the layer already loaded
+
+
+}
+
+function layerExists(layerName){
+	  // first check if the thing is loaded already
+  for (let i=0;i<mapLayers.length ;i++){
+    if (mapLayers[i].layerName == layerName){
+      console.log("found "+ layerName);
+      return true;
+    }
+  }
+  return false;
+
+}
+
+function removeLayer(layerName) {
+	// remove a layer from the map	
+  for (let i=0;i<mapLayers.length ;i++){
+    if (mapLayers[i].layerName == layerName){
+      console.log("removing layer "+ layerName);
+      mapLayers.splice(i,1);  
+	  // don't continue the loop as we now have 1 less element in the array which means // that when we try to get the last element it won't be there any more
+  	 break; 
+    }
+  }
+}
+
+
+function listLayers() {
+	// list all the layers that are currently loaded
+  console.log("*********************************");
+  console.log("********Current Things *********");
+  for (let i=0;i<mapLayers.length;i++){
+    console.log(mapLayers[i].layerName);
+  }
+  console.log("*********************************");
+
+}

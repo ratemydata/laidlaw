@@ -78,44 +78,25 @@
                     </div>
                 </div>
                 <div class="navbar-nav">
-        <!-- Nav Item - Pages Collapse Menu -->
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="" onclick="alert('menu 1 clicked');" aria-expanded="true" aria-controls="collapseOne">
-            <!-- the next line is the cog image -->
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Menu 1</span>
-          </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Nav Item - Pages Collapse Menu -->
-            <div class="nav-item dropdown d-lg-none">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Load Visualisations</a>            
-            <div class="dropdown-menu bg-transparent border-0">
-              <a class="dropdown-item" class="dropdown-item" href="#" onclick="alert('menu3')";>Menu 3</a>
-              <a class="dropdown-item"   onclick="loadGraph();" >Earthquakes Graph</a>
-              <a class="dropdown-item" class="dropdown-item" href="#" 
-              onclick="alert('menu4');">Menu 4</a>
-            </div>
-          </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Menu 5</a>            
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Map Layers</a>            
             <div class="dropdown-menu bg-transparent border-0">
-              <a class="dropdown-item" class="dropdown-item" href="#" onclick="alert('menu6')";>Menu 6</a>
-              <a class="dropdown-item" class="dropdown-item" href="#" 
-              onclick="alert('menu7');">Menu 7</a>
-                            <a class="dropdown-item"   onclick="loadGraph();" >Earthquakes Graph</a>
+              <a class="dropdown-item" class="dropdown-item" href="#" onclick="loadLayer('menu6')";>Load Layer</a>
+              <a class="dropdown-item" class="dropdown-item" href="#" onclick="removeLayer('menu7');">Remove Layer</a>
+              <a class="dropdown-item"   onclick="listLayers();" >List Layers</a>
 
             </div>
           </div>
         <!-- Nav Item - Pages Collapse Menu -->
         <div class="nav-item dropdown d-sm-down">   
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Menu 8</a>            
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Graphs</a>            
             <div class="dropdown-menu bg-transparent border-0">
-              <a class="dropdown-item" class="dropdown-item" href="#" onclick="alert('menu9')";>Menu 9</a>
-              <a class="dropdown-item" class="dropdown-item" href="#" 
-              onclick="alert('menu10');">Menu 10</a>
+             <!-- <a class="dropdown-item" class="dropdown-item" href="#" onclick="alert('menu9')";>Menu 9</a> -->
+              <a class="dropdown-item"   onclick="loadGraph();" >Earthquakes Graph</a>
             </div>
           </div>
         </nav>
@@ -208,6 +189,7 @@
 <script src="js/graph.js"></script>
 <script src="js/arrays.js"></script>
 <script src="js/utilities.js"></script>
+<script src="js/layers.js"></script>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>  
 </body>
