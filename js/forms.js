@@ -29,6 +29,19 @@ removeLayerBtn.addEventListener('click', (event) => {
 }); // end of the listener
 
 
+function showLayerListDialog(){
+	let layerListDialog = document.getElementById("allLayers");
+
+	let layerList = document.getElementById("listAllLayers");
+	// clear any previous contents of the select box
+	removeOptions(layerList);
+
+	// add the current list of layers for the user to select from
+	addLayersToSelect(layerList);
+
+	layerListDialog.showModal();
+}
+
 
 function showLayerLoadDialog(){
 	let loadLayerDialog = document.getElementById("layerToLoad");
