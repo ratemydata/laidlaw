@@ -10,7 +10,8 @@ function loadLayer(url, layerName){
 	// if the data is stored on the same site, the code will assume that the data is in the
 	// data subdirectory
 
-	url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
+	console.log(url);
+	console.log(layerName);
 	// check if the layer is loaded
 	if (!layerExists()) {
 			// we use AJAX to get the data
@@ -21,7 +22,7 @@ function loadLayer(url, layerName){
 
 		    		// add the JSON layer onto the map - it will appear using the default icons
 		    		let newLayer = L.geoJson(result).addTo(mymap);
-		    		mapLayers.push({layer:newLayer, name:"earthquakes"});
+		    		mapLayers.push({layer:newLayer, name:layerName});
 		    		// change the map zoom so that all the data is shown
 		    		mymap.fitBounds(newLayer.getBounds());
 				} // end of the inner function
