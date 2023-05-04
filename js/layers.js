@@ -10,12 +10,13 @@ function loadLayer(url, layerName){
 	// if the data is stored on the same site, the code will assume that the data is in the
 	// data subdirectory
 
+	url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
 	// check if the layer is loaded
 	if (!layerExists()) {
 			// we use AJAX to get the data
 			// that ensures that the map doesn't try to load the data before it has been returned to the browser from 
 			// wherever it is stored
-			 $.ajax({url: layerURL, crossDomain: true,success: function(result){
+			 $.ajax({url: url, crossDomain: true,success: function(result){
 			 	console.log(result); // check that the data is correct
 
 		    		// add the JSON layer onto the map - it will appear using the default icons
@@ -58,7 +59,7 @@ function removeLayer(layerName) {
 function listLayers() {
 	// list all the layers that are currently loaded
   console.log("*********************************");
-  console.log("********Current Things *********");
+  console.log("********Current Layers *********");
   for (let i=0;i<mapLayers.length;i++){
     console.log(mapLayers[i].layerName);
   }
