@@ -13,16 +13,16 @@ function loadLayer(url, layerName){
 	console.log(url);
 	console.log(layerName);
 	// check if the layer is loaded
-	if (!layerExists()) {
+	if (!layerExists(layerName)) {
 			// we use AJAX to get the data
 			// that ensures that the map doesn't try to load the data before it has been returned to the browser from 
 			// wherever it is stored
 			 $.ajax({url: url, crossDomain: true,success: function(result){
 			 	console.log(result); // check that the data is correct
-
 		    		// add the JSON layer onto the map - it will appear using the default icons
 		    		let newLayer = L.geoJson(result).addTo(mymap);
 		    		mapLayers.push({layer:newLayer, name:layerName});
+		    		listLayers();
 		    		// change the map zoom so that all the data is shown
 		    		mymap.fitBounds(newLayer.getBounds());
 				} // end of the inner function
@@ -33,8 +33,10 @@ function loadLayer(url, layerName){
 }
 
 function layerExists(layerName){
+  console.log("layer exists check");
   // first check if the thing is loaded already
   for (let i=0;i<mapLayers.length ;i++){
+  	console.log(mapLayers[i].name + " "+ layerName);
     if (mapLayers[i].name == layerName){
       console.log("found "+ layerName);
       alert ("Layer "+layerName + " already loaded");
@@ -56,6 +58,7 @@ function removeLayer(layerName) {
 
       // remove the layer from the array
       mapLayers.splice(i,1);  
+      listLayers();
 	  // don't continue the loop as we now have 1 less element in the array which means // that when we try to get the last element it won't be there any more
   	 break; 
     }
