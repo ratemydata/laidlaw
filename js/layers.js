@@ -20,7 +20,13 @@ function loadLayer(url, layerName){
 			 $.ajax({url: url, crossDomain: true,success: function(result){
 			 	console.log(result); // check that the data is correct
 		    		// add the JSON layer onto the map - it will appear using the default icons
-		    		let newLayer = L.geoJson(result).addTo(mymap);
+				// for each feature in the layer, add a pop-up with its properties
+				let newlayer = L.geoJSON(result, {
+ 					onEachFeature: function (f, l) {
+   						l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+ 					}
+				}).addTo(mymap); 
+				 
 		    		mapLayers.push({layer:newLayer, name:layerName});
 		    		listLayers();
 		    		// change the map zoom so that all the data is shown
