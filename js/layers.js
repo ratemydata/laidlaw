@@ -21,7 +21,7 @@ function loadLayer(url, layerName){
 			 	console.log(result); // check that the data is correct
 		    		// add the JSON layer onto the map - it will appear using the default icons
 				// for each feature in the layer, add a pop-up with its properties
-				let newlayer = L.geoJSON(result, {
+				let newLayer = L.geoJSON(result, {
  					onEachFeature: function (f, l) {
    						l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
  					}
