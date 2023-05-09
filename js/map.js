@@ -10,7 +10,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // add a function to show the coordinates of where the user clicks on the map
     mymap.on('click', function(e) {
-    alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+    //alert("Clicked on Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+     document.getElementById("clickCoordinates").innerHTML = "Clicked on Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng;
 });
 
 } // end loadMap
