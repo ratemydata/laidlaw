@@ -6,29 +6,27 @@ function loadGraph(){
     });
     bsMapCollapse.hide();
 
+
     let adwCollapse = document.getElementById('assetDataWrapperWrapper');
     let bsAdwCollapse = new bootstrap.Collapse(adwCollapse, {
-          toggle: false, show:true
+          toggle: true
     });
-    bsAdwCollapse.show();
 
-
-    let widtha = document.getElementById("assetDataWrapper").clientWidth*2;
-    let heighta = document.getElementById("assetDataWrapper").offsetHeight;
-    console.log(widtha+" "+heighta);
 
     // Add the close button and an SVG element for the graph
-     document.getElementById("assetDataWrapper").innerHTML=`<div  class="h-100 w-100">
-                <button type="button" class="btn-close float-end" aria-label="Close" onclick="closeAssetData()"></button>
-                <svg fill="blue" width="`+widtha+`" height="`+heighta+`" id="svg1">
-                </svg>
-                </div>`
+    let widtha = document.getElementById("assetDataWrapperWrapper").offsetWidth;
+    let heighta = document.getElementById("assetDataWrapperWrapper").offsetHeight;
+
+    document.getElementById("assetDataWrapperWrapper").innerHTML= '<div><button type="button" class="btn btn-primary ms-4" data-bs-toggle="collapse" data-bs-target="#assetDataWrapperWrapper">Close Graph</button>';
+    document.getElementById("assetDataWrapperWrapper").innerHTML += `<svg fill="blue" width="`+widtha+`" height="`+heighta+`" id="svg1">
+                </svg><div>`;
+
+    console.log(widtha+" "+heighta);
 
 
-     // create an SVG container for the graph
      // g is a grouping element
      let marginTop = 30;
-     let marginBottom = 60;
+     let marginBottom = 260;
      let marginLeft = 50;
      let marginRight=20;
 
@@ -50,10 +48,10 @@ d3.json(dataURL).then(data => {
 
   // adjust the space available for the x-axis titles, depending on the length of the text
   if (xLen > 100) {
-    marginBottom = Math.round(xLen/3,0);
+    marginBottom = Math.round(xLen/3,0) + 120; // the 120 allows for the close button
   }
   else {
-    marginBottom = xLen + 20;  // the 20 allows for the close button 
+    marginBottom = xLen + 120;  // the 120 allows for the close button 
   } //rough approximation for now
   console.log(marginBottom);
   let svg     = d3.select("#svg1"),
