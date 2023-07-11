@@ -1,34 +1,48 @@
 "use strict";
 function loadGraph(){
-    let mapCollapse = document.getElementById('mapWrapper');
-    let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
-          toggle: false, show:false
-    });
-    bsMapCollapse.hide();
-
-    let adwCollapse = document.getElementById('assetDataWrapperWrapper');
-    let bsAdwCollapse = new bootstrap.Collapse(adwCollapse, {
-          toggle: false, show:true
-    });
-    bsAdwCollapse.show();
+    let isMapVisible = $('#mapWrapper').is( ":visible" );
+    if (isMapVisible) {
+      let mapCollapse = document.getElementById('mapWrapper');
+      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
+          toggle: true
+      });
+    }
+    //bsMapCollapse.hide();
 
 
-    let widtha = document.getElementById("assetDataWrapper").clientWidth*2;
-    let heighta = document.getElementById("assetDataWrapper").offsetHeight;
-    console.log(widtha+" "+heighta);
+    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
+    if (isRatingVisible){
+      let ratingCollapse = document.getElementById('mapAbilityWrapper');
+      let rsratingCollapse = new bootstrap.Collapse(ratingCollapse, {
+          toggle: true
+      });
+    }
+
+    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
+    if (!isGraphVisible){
+      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
+      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
+          toggle: true
+      });
+    }
+
 
     // Add the close button and an SVG element for the graph
-     document.getElementById("assetDataWrapper").innerHTML=`<div  class="h-100 w-100">
-                <button type="button" class="btn-close float-end" aria-label="Close" onclick="closeAssetData()"></button>
-                <svg fill="blue" width="`+widtha+`" height="`+heighta+`" id="svg1">
-                </svg>
-                </div>`
+    let widtha = document.getElementById("assetDataWrapperWrapper").offsetWidth;
+    let heighta = document.getElementById("assetDataWrapperWrapper").offsetHeight;
+
+    document.getElementById("assetDataWrapperWrapper").innerHTML= `<div><button type="button" class="btn btn-primary ms-4" onclick="closeAssetData()">Close Graph</button>'
+      +  <div id="assetDataWrapper" class="vw-100" style="height:calc(100% - 165px);width:100%;border-color='blue';border-width=5px;"> 
+    </div>`;
+    document.getElementById("assetDataWrapper").innerHTML += `<svg fill="blue" width="`+widtha+`" height="`+heighta+`" id="svg1">
+                </svg><div>`;
+
+    console.log(widtha+" "+heighta);
 
 
-     // create an SVG container for the graph
      // g is a grouping element
      let marginTop = 30;
-     let marginBottom = 60;
+     let marginBottom = 260;
      let marginLeft = 50;
      let marginRight=20;
 
@@ -50,10 +64,10 @@ d3.json(dataURL).then(data => {
 
   // adjust the space available for the x-axis titles, depending on the length of the text
   if (xLen > 100) {
-    marginBottom = Math.round(xLen/3,0);
+    marginBottom = Math.round(xLen/3,0) + 120; // the 120 allows for the close button
   }
   else {
-    marginBottom = xLen + 20;  // the 20 allows for the close button 
+    marginBottom = xLen + 120;  // the 120 allows for the close button 
   } //rough approximation for now
   console.log(marginBottom);
   let svg     = d3.select("#svg1"),
@@ -133,17 +147,32 @@ function wrap(text, width) {
 
 
 function closeAssetData(){
-    let mapCollapse = document.getElementById('mapWrapper');
-    let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
-          toggle: false, show:false
-    });
-    bsMapCollapse.show();
+    let isMapVisible = $('#mapWrapper').is( ":visible" );
+    if (!isMapVisible) {
+      let mapCollapse = document.getElementById('mapWrapper');
+      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
+          toggle: true
+      });
+    }
+    //bsMapCollapse.hide();
 
-    let adwCollapse = document.getElementById('assetDataWrapperWrapper');
-    let bsAdwCollapse = new bootstrap.Collapse(adwCollapse, {
-          toggle: false, show:true
-    });
-    bsAdwCollapse.hide();
+
+    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
+    if (isRatingVisible){
+      let ratingCollapse = document.getElementById('mapAbilityWrapper');
+      let rsratingCollapse = new bootstrap.Collapse(ratingCollapse, {
+          toggle: true
+      });
+    }
+
+    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
+    if (isGraphVisible){
+      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
+      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
+          toggle: true
+      });
+    }
+
 
 
 }
