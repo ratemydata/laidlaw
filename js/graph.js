@@ -1,8 +1,6 @@
 "use strict";
 function loadGraph(){
     let isMapVisible = $('#mapWrapper').is( ":visible" );
-    alert(isMapVisible);
-
     if (isMapVisible) {
       let mapCollapse = document.getElementById('mapWrapper');
       let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
@@ -33,8 +31,10 @@ function loadGraph(){
     let widtha = document.getElementById("assetDataWrapperWrapper").offsetWidth;
     let heighta = document.getElementById("assetDataWrapperWrapper").offsetHeight;
 
-    document.getElementById("assetDataWrapperWrapper").innerHTML= '<div><button type="button" class="btn btn-primary ms-4" onclick="closeAssetData()">Close Graph</button>';
-    document.getElementById("assetDataWrapperWrapper").innerHTML += `<svg fill="blue" width="`+widtha+`" height="`+heighta+`" id="svg1">
+    document.getElementById("assetDataWrapperWrapper").innerHTML= `<div><button type="button" class="btn btn-primary ms-4" onclick="closeAssetData()">Close Graph</button>'
+      +  <div id="assetDataWrapper" class="vw-100" style="height:calc(100% - 165px);width:100%;border-color='blue';border-width=5px;"> 
+    </div>`;
+    document.getElementById("assetDataWrapper").innerHTML += `<svg fill="blue" width="`+widtha+`" height="`+heighta+`" id="svg1">
                 </svg><div>`;
 
     console.log(widtha+" "+heighta);
