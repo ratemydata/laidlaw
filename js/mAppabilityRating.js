@@ -35,55 +35,46 @@ function loadMappabilityRating(){
     document.getElementById("mapAbility").innerHTML="the boxes for the ratings will go here";
 
 
-var arc = d3.arc()
+let arc = d3.arc()
   .innerRadius(0)
   .outerRadius(function (d,i) { 
       return d.data.radius*100
   });
   
   
-  var pie = d3.pie()
+  let pie = d3.pie()
     .sort(null)
     .value(function(d) { return d.radius; });
 
- var data = [{ label:0, radius:1, color:'#ff0022' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
+ let data = [{ label:0, radius:4, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
 
     
-    // code source: https://stackoverflow.com/questions/41268437/d3-concentric-nested-donut-chart
+//code source adapted from: https://stackoverflow.com/questions/41268437/d3-concentric-nested-donut-chart
+//https://stackoverflow.com/questions/36327948/draw-circles-inside-pie-d3-chart
+//https://stackoverflow.com/questions/41427354/how-to-add-a-circle-in-the-middle-of-donut-chart-and-fill-it-in-d3-js
 
- var svg =  d3.select('#mapAbility').append('svg').attr('width',1500).attr('height',1500)
+ let svg =  d3.select('#mapAbility').append('svg').attr('width',1500).attr('height',1500)
 
-let cwidth = 333;
-  var innerArc = d3.arc()
-          .innerRadius(58)
-          .outerRadius(cwidth * 2.9);
-
-        var outerArc = d3.arc()
-          .innerRadius(70 + cwidth)
-          .outerRadius(cwidth * 3.5);
-
- svg.selectAll('path')
+ var g = svg.selectAll('path')
     .data(pie(data))
     .enter()
     .append('path')
     .attr('d',arc)
-    .attr('transform','translate(250,250)')
+    .attr('transform','translate(500,500)')
     .attr('fill', function(d){ return(d.data.color) })
     .attr('stroke','black')
 
 
- svg.append("path")
-          .attr("fill", function(d) {
-            return "#A4C7F4";
-          })
-          .attr("d", function(d, i, j) {
-            return j === 0 ? innerArc(d) : outerArc(d);
-          });
-// change the colours
 
-//pie.colors(colorScale);
-//.range())
- //  .colorAccessor(function(d){ return colorScale.domain().indexOf(d.fruitType); });    
+svg.append("svg:circle")
+    .attr("cx", 500)
+    .attr("cy", 500)
+    .attr("r", 20)
+    .attr('fill','none')
+    .attr('stroke','black')
+    .attr("class", "white-circle")
+    attr("stroke-width",5)
+    .append("g");
 
 
 }
