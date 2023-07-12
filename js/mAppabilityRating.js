@@ -1,5 +1,6 @@
 "use strict";
 function loadMappabilityRating(){
+    // check which DIVs are visible and only keep the mapppability div visible
     let isMapVisible = $('#mapWrapper').is( ":visible" );
     if (isMapVisible) {
       let mapCollapse = document.getElementById('mapWrapper');
@@ -27,14 +28,15 @@ function loadMappabilityRating(){
       });
     }
 
-    document.getElementById("mapAbilityWrapper").innerHTML= `<div><button type="button" class="btn btn-primary ms-4" onclick="closeMappability()">Close Rating</button>`
+    // add the close button on the div
+    document.getElementById("mapAbilityWrapper").innerHTML= `<div><button type="button" class="btn btn-primary ms-4" onclick="closeMappability()">Close Rating Now</button>`
      + `<div id="mapAbility" class="vw-100" style="height:calc(100% - 165px);width:100%;border-color='blue';border-width=5px;"> 
     </div>`;
 
     // temporary code - this will be replaced with the rating creation code
     document.getElementById("mapAbility").innerHTML="the boxes for the ratings will go here";
 
-let data = [{ label:0, radius:0.5, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
+let data = [{ label:5, radius:3.5, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
 
 
 // multiply the radius by 100 to create a large pie
@@ -47,7 +49,7 @@ let arc = d3.arc()
  
 let pie = d3.pie()
   .sort(null)
-  .value(function(d) { return d.radius; });
+  .value(function(d) { return d.label; });
 
     
 //code source adapted from: https://stackoverflow.com/questions/41268437/d3-concentric-nested-donut-chart
