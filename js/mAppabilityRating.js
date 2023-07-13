@@ -34,7 +34,7 @@ function loadMappabilityRating(){
     // temporary code - this will be replaced with the rating creation code
     document.getElementById("mapAbility").innerHTML="the boxes for the ratings will go here";
 
-let data = [{ label:0, radius:2.5, color:'#ffffff' }, { label:1, radius:2.5, color:'#eeff00' }, { label:2, radius:2.5,color:'#ff0022' }, { label:3, radius:2.5 , color:'#3300ff'}, { label:4, radius:2.5,  color:'#30ffff' }]
+let data = [{ label:0, radius:2.5, color:'#ffffff', label: 's'}, { label:1, radius:2.5, color:'#eeff00' }, { label:2, radius:2.5,color:'#ff0022' }, { label:3, radius:2.5 , color:'#3300ff'}, { label:4, radius:2.5,  color:'#30ffff' }]
 
 
 // multiply the radius by 100 to create a large pie
