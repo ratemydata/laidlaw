@@ -34,7 +34,7 @@ function loadMappabilityRating(){
     // temporary code - this will be replaced with the rating creation code
     document.getElementById("mapAbility").innerHTML="the boxes for the ratings will go here";
 
-let data = [{ label:0, radius:0.5, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
+let data = [{ label:0, radius:2.5, color:'#ffffff' }, { label:1, radius:2.5, color:'#eeff00' }, { label:2, radius:2.5,color:'#ff0022' }, { label:3, radius:2.5 , color:'#3300ff'}, { label:4, radius:2.5,  color:'#30ffff' }]
 
 
 // multiply the radius by 100 to create a large pie
@@ -83,21 +83,11 @@ let pie = d3.pie()
 svg.append("svg:circle")
     .attr("cx", 500)
     .attr("cy", 500)
-    .attr("r", 20)
-    .attr('fill','none')
-    .attr('stroke','black')
-    .attr("class", "white-circle")
-    .attr("stroke-width",5)
-
-svg.append("svg:circle")
-    .attr("cx", 500)
-    .attr("cy", 500)
     .attr("r", 50)
     .attr('fill','none')
     .attr('stroke','black')
     .attr("class", "white-circle")
     .attr("stroke-width",5)
-
 
 svg.append("svg:circle")
     .attr("cx", 500)
@@ -122,7 +112,17 @@ svg.append("svg:circle")
 svg.append("svg:circle")
     .attr("cx", 500)
     .attr("cy", 500)
-    .attr("r", 300)
+    .attr("r", 200)
+    .attr('fill','none')
+    .attr('stroke','black')
+    .attr("class", "white-circle")
+    .attr("stroke-width",5)
+
+
+svg.append("svg:circle")
+    .attr("cx", 500)
+    .attr("cy", 500)
+    .attr("r", 250)
     .attr('fill','none')
     .attr('stroke','black')
     .attr("class", "white-circle2")
