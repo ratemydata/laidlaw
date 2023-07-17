@@ -47,7 +47,7 @@
 </style>
 </head>
 
-<body  onresize="processWindowResize()"> 
+<body  onresize="processWindowResize()">
     <div class="container-fluid position-relative bg-warning p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -83,7 +83,7 @@
         <hr class="sidebar-divider">
         <!-- Nav Item - Pages Collapse Menu -->
         <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Map Layers</a>            
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Map Layers</a>
             <div class="dropdown-menu bg-transparent border-0">
               <a class="dropdown-item" class="dropdown-item" href="#" onclick="showLayerLoadDialog()";>Load Layer</a>
               <a class="dropdown-item" class="dropdown-item" href="#" onclick="removeLayerDialog();">Remove Layer</a>
@@ -92,12 +92,15 @@
             </div>
           </div>
         <!-- Nav Item - Pages Collapse Menu -->
-        <div class="nav-item dropdown d-sm-down">   
+        <div class="nav-item dropdown d-sm-down">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>GraphsLeo</a>
             <div class="dropdown-menu bg-transparent border-0">
              <!-- <a class="dropdown-item" class="dropdown-item" href="#" onclick="alert('menu9')";>Menu 9</a> -->
               <a class="dropdown-item"   onclick="loadGraph();" >Earthquakes Graph</a>
               <a class="dropdown-item"   onclick="loadRatingCalculator();" >Data Rating Calculator</a>
+                    
+                                
+                
               <a class="dropdown-item"   onclick="loadMappabilityRating();" >Load m(App)ability rating</a>
             </div>
           </div>
@@ -116,7 +119,7 @@
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars" ></i>
-                </a> 
+                </a>
                 <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search" onclick="alert('Placeholder for search');">
                 </form>
@@ -165,10 +168,82 @@
     </div> <!-- map id -->
     </div> <!-- map wrapper -->
     <div id="assetDataWrapperWrapper" class="col vh-100 collapse hide" aria-expanded="true" style="background-color:lightgray; margin-top:65px;margin-bottom:100px;z-order:0;">
+        
     </div> <!-- asset data wrapper wrapper wrapper -->
+        
+
+
 
     <div id="mapAbilityWrapper" class="col vh-100 collapse hide" aria-expanded="true" style="background-color:lightpink; margin-top:65px;margin-bottom:100px;z-order:0;">
+        
     </div> <!-- map ability wrapper wrapper -->
+    <a
+        <html>
+        
+
+        <body>
+
+        <p>
+            <h2>Data Rating Calculator</h2>
+            <h3>Enter Each Factor's Grade</h3>
+            <TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2>
+
+            <tr>
+            <td>TYPE</td>
+            <td>GRADE</td>
+            </tr>
+
+            <tr>
+            <td>Spatial componenent</td>
+            <td><input type="text" id="Spatialcomp" size=2 value=""> /5</td>
+            </tr>
+
+            <tr>
+            <td>Pre-Processing Time</td>
+            <td><input type="text" id="PreTime" size=2 value=""> /5</td>
+            </tr>
+
+            <tr>
+            <td>Data Density</td>
+            <td><input type="text" id="Density" size=2 value=""> /3</td>
+            </tr>
+
+            <tr>
+            <td>Geographical Relevance</td>
+            <td><input type="text" id="GeoRelevance" size=2 value=""> /3</td>
+            </tr>
+            
+            <tr>
+            <td>Element Suitability (point, line polygon)</td>
+            <td><input type="text" id="Elements" size=2 value=""> /3</td>
+            </tr>
+
+            <br><br>
+        </p>
+            <input type="button" value="Calculate Your Grade"
+                onclick="calculator()">
+
+            <hr>
+            <div id="outputDiv" style="height: 50px; width: 100%;"></div>
+
+            <script type="text/javascript">
+
+                function calculator()
+                {
+                    var grade1=parseFloat(document.getElementById('Spatialcomp').value*1);
+                    var grade2=parseFloat(document.getElementById('PreTime').value*1);
+                    var grade3=parseFloat(document.getElementById('Density').value*1);
+                    var grade4=parseFloat(document.getElementById('GeoRelevance').value*1);
+                    var grade5=parseFloat(document.getElementById('Elements').value*1);
+                    var total=100*(grade1+grade2+grade3+grade4+grade5)/19;
+                    var total=total.toFixed(2);
+                 
+
+                    var display=document.getElementById('outputDiv');
+
+                    display.innerHTML=" Data's rating: " +total+ '%';
+                }
+            </script>
 
 
 
@@ -248,8 +323,19 @@
 <script src="js/layers.js"></script>
 <script src="js/forms.js"></script>
 <script src="js/mAppabilityRating.js"></script>
-<script src="https://d3js.org/d3.v6.min.js"></script>  
+
+<script src="js/RatingCalculator.js"></script>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
 </body>
 
 
 </html>
+
+
+
+
+
+
+
+
