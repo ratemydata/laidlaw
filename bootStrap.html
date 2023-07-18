@@ -193,8 +193,9 @@
 
             .parameter-label {
               position: absolute;
-              font-size: 14px;
+              font-size: 12px;
               font-weight: bold;
+              background-color: white
             }
 
             #final-grade {
@@ -216,7 +217,7 @@
               text-align: center;
             }
 
-            /* Reduce the font size of the table by 25% */
+            /* table font size reduced by 25% */
             #parameter-table {
               font-size: 75%;
             }
@@ -236,7 +237,7 @@
           </table>
 
           <script>
-            // Define parameter names, maximum values, and colors
+            // parameter names, max values, and colors
             var parameterInfo = [
               { name: "Spatial Component", max: 5, color: "#ff7f0e" },
               { name: "Pre-Processing Time", max: 5, color: "#1f77b4" },
@@ -245,7 +246,7 @@
               { name: "Element Suitability", max: 3, color: "#9467bd" }
             ];
 
-            // Get user input for parameter values
+            // User input for parameter values
             var parameters = [];
             for (var i = 0; i < parameterInfo.length; i++) {
               var value = parseFloat(prompt("Enter the value for " + parameterInfo[i].name + " (Max: " + parameterInfo[i].max + ")"));
@@ -256,10 +257,10 @@
               parameters.push(value);
             }
 
-            // Calculate the maximum value among all parameters
+            // max value among all parameters
             var maxVal = Math.max(...parameterInfo.map(info => info.max));
 
-            // Calculate the radius for each parameter
+            // radius for each parameter
             var radii = parameters.map((value, index) => (value / parameterInfo[index].max) * 100);
 
             // Create the chart using SVG
