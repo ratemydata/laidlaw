@@ -28,7 +28,7 @@ function calculateRating() {
             let radii = parameters.map((value, index) => (value / parameterInfo[index].max) * 100);
 
             // Create the chart using SVG
-            let chart = document.getElementById("chart");
+            let chart = document.getElementById("ratingWrapper");
             let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svg.setAttribute("width", "100%");
             svg.setAttribute("height", "100%");
