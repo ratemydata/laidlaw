@@ -1,7 +1,7 @@
 "use strict"
 alert("this is code outside a function so is called as soon as the page loads");
 function calculateRating() {
-            function showRatingDiv();
+            showRatingDiv();
 
             // parameter names, max values, and colors
             let parameterInfo = [
@@ -117,10 +117,10 @@ function showRatingDiv() {
     }
 
 
-    let isRatingVisible = $('#ratingWrapper').is( ":visible" );
-    if (!isRatingVisible){
-      let ratingCollapse = document.getElementById('ratingWrapper');
-      let gsRatingCollapse = new bootstrap.Collapse(ratingCollapse, {
+    let isRatingTableVisible = $('#ratingWrapper').is( ":visible" );
+    if (!isRatingTableVisible){
+      let ratingTableCollapse = document.getElementById('ratingWrapper');
+      let gsRatingTableCollapse = new bootstrap.Collapse(ratingTableCollapse, {
           toggle: true
       });
     }
