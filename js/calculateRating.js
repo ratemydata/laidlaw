@@ -1,7 +1,7 @@
 "use strict"
 alert("this is code outside a function so is called as soon as the page loads");
 function calculateRating() {
-          
+            function showRatingDiv();
 
             // parameter names, max values, and colors
             let parameterInfo = [
@@ -87,4 +87,42 @@ function calculateRating() {
             let finalGradeText = "Final grade: " + finalGrade.toFixed(2) + "%";
             let finalGradeElement = document.getElementById("final-grade");
             finalGradeElement.innerText = finalGradeText;
+}
+
+function showRatingDiv() {
+      let isMapVisible = $('#mapWrapper').is( ":visible" );
+    if (!isMapVisible) {
+      let mapCollapse = document.getElementById('mapWrapper');
+      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
+          toggle: true
+      });
+    }
+    //bsMapCollapse.hide();
+
+
+    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
+    if (isGraphVisible){
+      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
+      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
+          toggle: true
+      });
+    }
+    
+    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
+    if (isRatingVisible){
+      let ratingCollapse = document.getElementById('mapAbilityWrapper');
+      let gsRatingCollapse = new bootstrap.Collapse(ratingCollapse, {
+          toggle: true
+      });
+    }
+
+
+    let isRatingVisible = $('#ratingWrapper').is( ":visible" );
+    if (!isRatingVisible){
+      let ratingCollapse = document.getElementById('ratingWrapper');
+      let gsRatingCollapse = new bootstrap.Collapse(ratingCollapse, {
+          toggle: true
+      });
+    }
+
 }
