@@ -90,7 +90,7 @@ function calculateRating() {
 }
 
 function showRatingDiv() {
-      let isMapVisible = $('#mapWrapper').is( ":visible" );
+    let isMapVisible = $('#mapWrapper').is( ":visible" );
     if (!isMapVisible) {
       let mapCollapse = document.getElementById('mapWrapper');
       let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
@@ -119,6 +119,44 @@ function showRatingDiv() {
 
     let isRatingTableVisible = $('#ratingWrapper').is( ":visible" );
     if (!isRatingTableVisible){
+      let ratingTableCollapse = document.getElementById('ratingWrapper');
+      let gsRatingTableCollapse = new bootstrap.Collapse(ratingTableCollapse, {
+          toggle: true
+      });
+    }
+
+}
+
+function closeRatingWrapper(){
+
+  // show the map
+   let isMapVisible = $('#mapWrapper').is( ":visible" );
+    if (!isMapVisible) {
+      let mapCollapse = document.getElementById('mapWrapper');
+      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
+          toggle: true
+      });
+    }
+
+    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
+    if (isGraphVisible){
+      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
+      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
+          toggle: true
+      });
+    }
+    
+    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
+    if (isRatingVisible){
+      let ratingCollapse = document.getElementById('mapAbilityWrapper');
+      let gsRatingCollapse = new bootstrap.Collapse(ratingCollapse, {
+          toggle: true
+      });
+    }
+
+
+    let isRatingTableVisible = $('#ratingWrapper').is( ":visible" );
+    if (isRatingTableVisible){
       let ratingTableCollapse = document.getElementById('ratingWrapper');
       let gsRatingTableCollapse = new bootstrap.Collapse(ratingTableCollapse, {
           toggle: true
