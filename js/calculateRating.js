@@ -70,8 +70,10 @@ function calculateRating() {
               let parameterCell = newRow.insertCell(0);
               let valueCell = newRow.insertCell(1);
               let gradeCell = newRow.insertCell(2);
+              let parameterDescription = newRow.insertCell(3);
 
               parameterCell.innerHTML = parameterInfo[j].name;
+              parameterDescription.innerHTML = "xxxx";
               valueCell.innerHTML = parameters[j] + "/" + parameterInfo[j].max;
               gradeCell.innerHTML = ((parameters[j] / parameterInfo[j].max) * 100).toFixed(0) + "%";
 
