@@ -1,6 +1,8 @@
 "use strict"
 alert("this is code outside a function so is called as soon as the page loads");
 function calculateRating() {
+          
+
             // parameter names, max values, and colors
             let parameterInfo = [
               { name: "Spatial Component", max: 5, color: "#ff7f0e" },
