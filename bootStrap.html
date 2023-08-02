@@ -106,6 +106,14 @@
 
 
         <!-- Content Start -->
+        <div id="sidebarContainer" class="sidebar-container collapse hide" aria-expanded="false">
+          <!-- Add the content from piedar.js here -->
+          <!-- For example, add a div with an ID for the chart -->
+          <div id="piedarChartContainer"></div>
+          <iframe id="sidebarIframe" src="" frameborder="0"></iframe>
+          <button id="closeSidebarBtn" class="btn-close" aria-label="Close"></button>
+        </div>
+
            <div id = "wrapper" class="content d-flex flex-column" >
         
             <!-- Navbar Start -->
@@ -152,8 +160,6 @@
                 </div>
 
             </nav><!-- Navbar End -->
-
-
 
 <div class="container-fluid px-0">
   <div class="row d-flex">
@@ -225,6 +231,41 @@
   </form>
 </dialog>
 
+<script>
+  function toggleSidebar() {
+    const sidebarContainer = document.getElementById("sidebarContainer");
+    sidebarContainer.classList.toggle("show");
+    sidebarContainer.setAttribute("aria-expanded", sidebarContainer.classList.contains("show"));
+  }
+
+  function loadMappabilityRating() {
+    // Load the piedar.js chart as before.
+    const piedarChartContainer = document.getElementById("piedarChartContainer");
+    // Insert your code here to generate the piedar chart and append it to piedarChartContainer.
+    
+    // Now, load the separate HTML document into the iframe.
+    const sidebarIframe = document.getElementById("sidebarIframe");
+    sidebarIframe.src = "mappability.html"; // Replace with the path to your separate HTML document.
+    
+    // Toggle the sidebar to slide it in.
+    toggleSidebar();
+  }
+
+  function closeSidebar() {
+    toggleSidebar(); // Close the sidebar by toggling it off.
+  }
+
+  // Add event listener to the "Load m(App)ability rating" button.
+  const loadMappabilityBtn = document.querySelector(".dropdown-item[onclick='loadMappabilityRating();']");
+  loadMappabilityBtn.addEventListener("click", loadMappabilityRating);
+
+  // Add event listener to the close button inside the sidebar.
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+  closeSidebarBtn.addEventListener("click", closeSidebar);
+</script>
+
+
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -246,6 +287,7 @@
 <script src="js/utilities.js"></script>
 <script src="js/layers.js"></script>
 <script src="js/forms.js"></script>
+<script src="js/piedar.js"></script>
 <script src="js/mAppabilityRating.js"></script>
 <script src="https://d3js.org/d3.v6.min.js"></script>  
 </body>

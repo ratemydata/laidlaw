@@ -34,7 +34,11 @@ function loadMappabilityRating(){
     // temporary code - this will be replaced with the rating creation code
     document.getElementById("mapAbility").innerHTML="the boxes for the ratings will go here";
 
-let data = [{ label:0, radius:0.5, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
+
+
+
+
+    let data = [{ label:0, radius:3, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:10,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
 
 
 // multiply the radius by 100 to create a large pie
@@ -43,6 +47,7 @@ let arc = d3.arc()
   .outerRadius(function (d,i) { 
       return d.data.radius*100
   });
+  
   
  
 let pie = d3.pie()
