@@ -33,7 +33,7 @@ jobs:
       - name: Create docs
         run: node ./jsdoc2md.js 
 
-# only save the files when the previous jobs are done
+      # only save the files when the previous jobs are done
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
