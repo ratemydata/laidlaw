@@ -42,6 +42,7 @@ function hideAllDivs(){
 
 /**
  * Function to show a single div from  map, graph, rating, 3D globe
+ * @param divName  name of the DIV to be shown
 */
 function showDiv(divName){
   hideAllDivs();

@@ -125,36 +125,12 @@ function wrap(text, width) {
   });
 }
 
-
+/**
+ * Function closeAssetData
+ * remove the graph DIV and show the map div (the default DIV, 2D map)
+*/
 function closeAssetData(){
-    let isMapVisible = $('#mapWrapper').is( ":visible" );
-    if (!isMapVisible) {
-      let mapCollapse = document.getElementById('mapWrapper');
-      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
-          toggle: true
-      });
-    }
-    //bsMapCollapse.hide();
-
-
-    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
-    if (isRatingVisible){
-      let ratingCollapse = document.getElementById('mapAbilityWrapper');
-      let rsratingCollapse = new bootstrap.Collapse(ratingCollapse, {
-          toggle: true
-      });
-    }
-
-    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
-    if (isGraphVisible){
-      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
-      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
-          toggle: true
-      });
-    }
-
-
-
+    showDiv('mapWrapper');
 }
 
 
