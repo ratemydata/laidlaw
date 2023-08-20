@@ -24,5 +24,5 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(__dirname));
-app.use(express.static(__dirname +"/doc"));
+app.use(express.static(__dirname +"/documentation"));
 
