@@ -7,7 +7,7 @@ var app = express();
 var http = require('http');
 
 var httpServer = http.createServer(app);
-var httpServerPort = 4485;
+var httpServerPort = 4490;
 
 httpServer.listen(httpServerPort);
 
@@ -24,4 +24,5 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(__dirname));
+app.use(express.static(__dirname +"/doc"));
 

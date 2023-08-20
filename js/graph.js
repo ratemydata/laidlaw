@@ -1,31 +1,11 @@
 "use strict";
+
+/**
+ * Function to load the demonstrator earthquakes graph
+*/
+
 function loadGraph(){
-    let isMapVisible = $('#mapWrapper').is( ":visible" );
-    if (isMapVisible) {
-      let mapCollapse = document.getElementById('mapWrapper');
-      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
-          toggle: true
-      });
-    }
-    //bsMapCollapse.hide();
-
-
-    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
-    if (isRatingVisible){
-      let ratingCollapse = document.getElementById('mapAbilityWrapper');
-      let rsratingCollapse = new bootstrap.Collapse(ratingCollapse, {
-          toggle: true
-      });
-    }
-
-    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
-    if (!isGraphVisible){
-      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
-      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
-          toggle: true
-      });
-    }
-
+    showDiv('assetDataWrapperWrapper');
 
     // Add the close button and an SVG element for the graph
     let widtha = document.getElementById("assetDataWrapperWrapper").offsetWidth;
