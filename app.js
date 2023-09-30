@@ -4,6 +4,7 @@ var path = require("path");
 var app = express();
 
 let requestIP = require('request-ip');
+require('dotenv').config();
 
 
 // add an https server to serve files 
@@ -21,6 +22,12 @@ const server = app.listen(httpServerPort, '0.0.0.0',() => {
 app.get('/',function (req,res) {
 	res.send("Hello World from the App Server on Node port "+httpServerPort + " (mapped to Apache port 443)");
 });
+
+app.get('/getProjectsAPI',function (req,res) {
+	res.send(process.env['PROJECTS_API']);
+});
+
+
 
 // adding functionality to log the requests
 app.use(function (req, res, next) {

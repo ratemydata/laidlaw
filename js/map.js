@@ -5,7 +5,7 @@ function loadMap() {
 
     // note the ordering of events below - the load event is set when the map is first initiatlised i.e. zoom etc set
     // so the load event needs to be set BEFORE the setView
-    mymap = L.map('mapid').on('load',loadProjects).setView([51.505, -0.09], 13);
+    mymap = L.map('mapid').on('load',loadProject).setView([51.505, -0.09], 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
