@@ -54,4 +54,4 @@ Function to show a single div from  map, graph, rating, 3D globe
 | --- | --- |
 | divName | name of the DIV to be shown |
 
- <br /> <br />Documentation Updated At: Sat Sep 30 2023 11:58:04 GMT+0000 (Coordinated Universal Time)
+ <br /> <br />Documentation Updated At: Sat Sep 30 2023 12:05:51 GMT+0000 (Coordinated Universal Time)
