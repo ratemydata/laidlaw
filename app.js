@@ -1,14 +1,13 @@
 // express is the server that forms part of the nodejs program
 var express = require('express');
 var path = require("path");
-var fs = require('fs');
 var app = express();
 
 // add an https server to serve files 
 var http = require('http');
 
 var httpServer = http.createServer(app);
-var httpServerPort = 4443;
+var httpServerPort = 4490;
 
 httpServer.listen(httpServerPort);
 
@@ -25,4 +24,5 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(__dirname));
+app.use(express.static(__dirname +"/documentation"));
 
