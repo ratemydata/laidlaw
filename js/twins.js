@@ -54,7 +54,7 @@ function loadLayers(project,url){
     		console.log(feature.properties.feature_type);
     		if (feature.properties.layer_type =="vector"){
     			let layerUrl = url+"/getData/getFeatures/"+feature.properties.schema+"/"+feature.properties.table_name+"/"+feature.properties.id_column+"/"+feature.properties.geom_column;
-    			//loadLayer(layerUrl, layername, false);
+    			loadLayer(layerUrl, layername, false);
     		}
     		if (feature.properties.layer_type = "API"){
     			// get the current map centre
