@@ -32,15 +32,27 @@ function zoomToExtents(project, url){
     	// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
     	let extent = new L.GeoJSON();
     	extent.addData(result.features[0]);
-    	//let extent = L.GeoJSON(result.features[0]); //.coordsToLatLng(result.features[0].geometry.coordinates[0]);
-    	//let extentCoords = L.GeoJSON.coordsToLatLng(extent);
-
     	mymap.fitBounds(extent.getBounds());
+
+    	// now load the actual layers
+    	loadLayers(project, url);
 	} // end of the succes function
 	}); // end of the ajax call
 }
 
 
-function loadLayers(project){
+function loadLayers(project,url){
+	// load the data 
+	// once complete add the layer to the layer control list
+	let currentURL = url+"/projects/layerlist/"+project
+	$.ajax({dataType:"json", url: currentURL, crossDomain: true,success: function(result){
+    	console.log(result.features[0].properties.project_name);
+		// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
+    	for (let i=0;i< result.features.length;i++){
+    		console.log(result.features[i].properties.layer_type);
+    		
+    	}
+	} // end of the succes function
+	});
 
 }
