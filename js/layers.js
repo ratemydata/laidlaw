@@ -3,7 +3,7 @@ let mapLayers = []; // array - stores the layers currently on the map
 
 
 
-function loadLayer(url, layerName, fitBounds){
+function loadLayer(url, tablename,layerName, fitBounds){
 	// add a given layer to the map with the given name
 	// assumes that the data source is geoJSON
 	// url can refer to an external site or
@@ -28,6 +28,10 @@ function loadLayer(url, layerName, fitBounds){
 				}).addTo(mymap); 
 				 
 		    		mapLayers.push({layer:newLayer, name:layerName});
+
+		    		// add the layer to the default Leaflet layer control
+						layerControl.addOverlay(newLayer, layerName);
+
 		    		listLayers();
 		    		// change the map zoom so that all the data is shown
 

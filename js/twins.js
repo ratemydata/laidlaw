@@ -54,14 +54,14 @@ function loadLayers(project,url){
     		console.log(feature.properties.feature_type);
     		if (feature.properties.layer_type =="vector"){
     			let layerUrl = url+"/getData/getFeatures/"+feature.properties.schema+"/"+feature.properties.table_name+"/"+feature.properties.id_column+"/"+feature.properties.geom_column;
-    			loadLayer(layerUrl, layername, false);
+    			loadLayer(layerUrl, feature.properties.table_name,layername, false);
     		}
     		if (feature.properties.layer_type = "API"){
     			// get the current map centre
     			let latitude = mymap.getCenter().lat;
     			let longitude = mymap.getCenter().lng;
     			let layerUrl=url+"/getData/getFeaturesFromAPI/"+feature.properties.table_name+"/"+latitude+"/"+longitude;
-    			loadLayer(layerUrl, layername, true);
+    			loadLayer(layerUrl, feature.properties.table_name,layername, true);
     		}
     	}
 	} // end of the succes function
