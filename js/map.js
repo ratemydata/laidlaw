@@ -1,15 +1,24 @@
 "use strict";
 let mymap; // stores the leaflet map
-
+let layerControl; // the leaflet layer control
 function loadMap() {
 
     // note the ordering of events below - the load event is set when the map is first initiatlised i.e. zoom etc set
     // so the load event needs to be set BEFORE the setView
     mymap = L.map('mapid').on('load',loadProject).setView([51.505, -0.09], 13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(mymap);
+    let osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(mymap);
+
+    let baseMaps = {
+        "OpenStreetMap": osm,
+    };
+
+    var overlayMaps = {
+    };
+
+    layerControl = L.control.layers(baseMaps,overlayMaps).addTo(mymap);
 
 // add a function to show the coordinates of where the user clicks on the map
     mymap.on('click', function(e) {

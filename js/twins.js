@@ -32,15 +32,39 @@ function zoomToExtents(project, url){
     	// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
     	let extent = new L.GeoJSON();
     	extent.addData(result.features[0]);
-    	//let extent = L.GeoJSON(result.features[0]); //.coordsToLatLng(result.features[0].geometry.coordinates[0]);
-    	//let extentCoords = L.GeoJSON.coordsToLatLng(extent);
-
     	mymap.fitBounds(extent.getBounds());
+
+    	// now load the actual layers
+    	loadLayers(project, url);
 	} // end of the succes function
 	}); // end of the ajax call
 }
 
 
-function loadLayers(project){
+function loadLayers(project,url){
+	// load the data 
+	// once complete add the layer to the layer control list
+	let currentURL = url+"/projects/layerlist/"+project
+	$.ajax({dataType:"json", url: currentURL, crossDomain: true,success: function(result){
+    	console.log(result.features[0]);
+		// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
+    	for (let i=0;i< result.features.length;i++){
+    		let feature = result.features[i];
+   			let layername = feature.properties.feature_type;
+    		console.log(feature.properties.feature_type);
+    		if (feature.properties.layer_type =="vector"){
+    			let layerUrl = url+"/getData/getFeatures/"+feature.properties.schema+"/"+feature.properties.table_name+"/"+feature.properties.id_column+"/"+feature.properties.geom_column;
+    			loadLayer(layerUrl, feature.properties.table_name,layername, false);
+    		}
+    		if (feature.properties.layer_type = "API"){
+    			// get the current map centre
+    			let latitude = mymap.getCenter().lat;
+    			let longitude = mymap.getCenter().lng;
+    			let layerUrl=url+"/getData/getFeaturesFromAPI/"+feature.properties.table_name+"/"+latitude+"/"+longitude;
+    			loadLayer(layerUrl, feature.properties.table_name,layername, true);
+    		}
+    	}
+	} // end of the succes function
+	});
 
 }

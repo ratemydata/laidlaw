@@ -3,7 +3,7 @@ let mapLayers = []; // array - stores the layers currently on the map
 
 
 
-function loadLayer(url, layerName){
+function loadLayer(url, tablename,layerName, fitBounds){
 	// add a given layer to the map with the given name
 	// assumes that the data source is geoJSON
 	// url can refer to an external site or
@@ -26,11 +26,15 @@ function loadLayer(url, layerName){
    						l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
  					}
 				}).addTo(mymap); 
-				 
 		    		mapLayers.push({layer:newLayer, name:layerName});
-		    		listLayers();
+		    		// add the layer to the default Leaflet layer control
+						layerControl.addOverlay(newLayer, layerName);
 		    		// change the map zoom so that all the data is shown
-		    		mymap.fitBounds(newLayer.getBounds());
+
+		    		// if this is a manual add then zoom to the new layer
+		    		if (fitBounds){
+		    			mymap.fitBounds(newLayer.getBounds());
+		    		}
 				} // end of the inner function
 			}); // end of the ajax request
 	} // end check if the layer already loaded
@@ -51,31 +55,3 @@ function layerExists(layerName){
 
 }
 
-function removeLayer(layerName) {
-	// remove a layer from the map	
-  for (let i=0;i<mapLayers.length ;i++){
-    if (mapLayers[i].name == layerName){
-      console.log("removing layer "+ layerName);
-
-      // remove the layer from the map
-      mymap.removeLayer(mapLayers[i].layer);
-
-      // remove the layer from the array
-      mapLayers.splice(i,1);  
-	  // don't continue the loop as we now have 1 less element in the array which means // that when we try to get the last element it won't be there any more
-  	 break; 
-    }
-  } // end loop around the list of layers
-}
-
-
-function listLayers() {
-	// list all the layers that are currently loaded
-  console.log("*********************************");
-  console.log("********Current Layers *********");
-  for (let i=0;i<mapLayers.length;i++){
-    console.log(mapLayers[i].name);
-  }
-  console.log("*********************************");
-
-}

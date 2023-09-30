@@ -1,10 +1,10 @@
 // express is the server that forms part of the nodejs program
-var express = require('express');
-var path = require("path");
-var app = express();
-
+let express = require('express');
+let path = require("path");
+let app = express();
+let os = require("os");
 let requestIP = require('request-ip');
-require('dotenv').config();
+require('dotenv').config({ path: os.homedir()+'/code/envfiles/intertwines/laidlaw/.env' })
 
 
 // add an https server to serve files 
