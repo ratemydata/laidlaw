@@ -3,7 +3,7 @@ let mapLayers = []; // array - stores the layers currently on the map
 
 
 
-function loadLayer(url, layerName){
+function loadLayer(url, layerName, fitBounds){
 	// add a given layer to the map with the given name
 	// assumes that the data source is geoJSON
 	// url can refer to an external site or
@@ -30,7 +30,11 @@ function loadLayer(url, layerName){
 		    		mapLayers.push({layer:newLayer, name:layerName});
 		    		listLayers();
 		    		// change the map zoom so that all the data is shown
-		    		mymap.fitBounds(newLayer.getBounds());
+
+		    		// if this is a manual add then zoom to the new layer
+		    		if (fitBounds){
+		    			mymap.fitBounds(newLayer.getBounds());
+		    		}
 				} // end of the inner function
 			}); // end of the ajax request
 	} // end check if the layer already loaded

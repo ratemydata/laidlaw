@@ -46,11 +46,23 @@ function loadLayers(project,url){
 	// once complete add the layer to the layer control list
 	let currentURL = url+"/projects/layerlist/"+project
 	$.ajax({dataType:"json", url: currentURL, crossDomain: true,success: function(result){
-    	console.log(result.features[0].properties.project_name);
+    	console.log(result.features[0]);
 		// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
     	for (let i=0;i< result.features.length;i++){
-    		console.log(result.features[i].properties.layer_type);
-    		
+    		let feature = result.features[i];
+   			layername = feature.properties.layer_name;
+    		console.log(feature.properties.layer_type);
+    		if (feature.properties.layer_type =="vector"){
+    			let layerUrl = url+"/data/getFeatures/"+feature.properties.schema+"/"+feature.properties.table_name+"/"+feature.properties.id_column+"/"+feature.properties.geom_column;
+    			loadLayer(layerUrl, layername, false);
+    		}
+    		if (feature.properties.layer_type = "API"){
+    			// get the current map centre
+    			let latitude = mymap.getCenter().lat;
+    			let longitude = mymap.getCenter().lng;
+    			let layerURL=url+"/data/getFeaturesFromAPI/"+feature.properties.table_name+"/"+latitude+"/"+longitude;
+    			loadLayer(layerUrl, layername, false);
+    		}
     	}
 	} // end of the succes function
 	});
