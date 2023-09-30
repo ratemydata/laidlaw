@@ -12,7 +12,11 @@ var http = require('http');
 var httpServer = http.createServer(app);
 var httpServerPort = 4490;
 
-httpServer.listen(httpServerPort);
+const server = app.listen('4490', '0.0.0.0',() => {
+  console.log(`Express is running on port ${server.address().port}`);
+});
+
+
 
 app.get('/',function (req,res) {
 	res.send("Hello World from the App Server on Node port "+httpServerPort + " (mapped to Apache port 443)");
