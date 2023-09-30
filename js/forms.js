@@ -14,34 +14,6 @@ addLayerBtn.addEventListener('click', (event) => {
 }); // end of the listener
 
 
-// add a listener for when the user clicks on a button
-// for the remove layer option
-removeLayerBtn.addEventListener('click', (event) => {
-  		event.preventDefault(); // We don't want to submit this fake form so this line cancels the default submit behaviour for an HTML form
-  		// get the layername that the user has selected
-		let layerList = document.getElementById("listOfLayers");
-  		let selectedOption = layerList.options[layerList.selectedIndex];
-  		let layerName = selectedOption.text;
-  		// call the load layer code
-  		console.log(layerName);
-  		removeLayer(layerName);
-  		document.getElementById("layerToRemove").close(); // Have to send the select box value here.
-}); // end of the listener
-
-
-function showLayerListDialog(){
-	let layerListDialog = document.getElementById("allLayers");
-
-	let layerList = document.getElementById("listAllLayers");
-	// clear any previous contents of the select box
-	removeOptions(layerList);
-
-	// add the current list of layers for the user to select from
-	addLayersToSelect(layerList);
-
-	layerListDialog.showModal();
-}
-
 
 function showLayerLoadDialog(){
 	let loadLayerDialog = document.getElementById("layerToLoad");
@@ -49,20 +21,6 @@ function showLayerLoadDialog(){
 
 }
 
-function removeLayerDialog(){
-	let removeLayerDialog = document.getElementById("layerToRemove");
-
-	let layerList = document.getElementById("listOfLayers");
-	// clear any previous contents of the select box
-	removeOptions(layerList);
-
-	// add the current list of layers for the user to select from
-	addLayersToSelect(layerList);
-
-	// show the dialog
-	removeLayerDialog.showModal();
-
-}
 
 function addLayersToSelect(selectElement){
 	console.log("addLayersToSelect "+ mapLayers.length);
