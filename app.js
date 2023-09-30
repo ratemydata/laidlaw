@@ -4,6 +4,9 @@ var path = require("path");
 var fs = require('fs');
 var app = express();
 
+let requestIP = require('request-ip');
+
+
 // add an https server to serve files 
 var http = require('http');
 
@@ -20,7 +23,7 @@ app.get('/',function (req,res) {
 app.use(function (req, res, next) {
 	var filename = path.basename(req.url);
 	var extension = path.extname(filename);
-	console.log("The file " + filename + " was requested.");
+	console.log("The file " + filename + " "+extension + " was requested. The client's IP Address is: "+ requestIP.getClientIp(req));
 	next();
 });
 
