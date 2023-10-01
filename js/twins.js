@@ -52,17 +52,8 @@ function loadLayers(project,url){
     		let feature = result.features[i];
    			let layername = feature.properties.feature_type;
     		console.log(feature.properties.feature_type);
-    		if (feature.properties.layer_type =="vector"){
-    			let layerUrl = url+"/getData/getFeatures/"+feature.properties.schema+"/"+feature.properties.table_name+"/"+feature.properties.id_column+"/"+feature.properties.geom_column;
-    			loadLayer(layerUrl, feature.properties.table_name,layername, false);
-    		}
-    		if (feature.properties.layer_type = "API"){
-    			// get the current map centre
-    			let latitude = mymap.getCenter().lat;
-    			let longitude = mymap.getCenter().lng;
-    			let layerUrl=url+"/getData/getFeaturesFromAPI/"+feature.properties.table_name+"/"+latitude+"/"+longitude;
-    			loadLayer(layerUrl, feature.properties.table_name,layername, true);
-    		}
+   			let layerUrl = url+"/getData/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.table_name;
+   			loadLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
     	}
 	} // end of the succes function
 	});
