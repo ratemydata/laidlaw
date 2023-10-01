@@ -15,7 +15,7 @@ function loadLayer(url, tablename,layerName, layerType,fitBounds){
 	// check if the layer is loaded
 	if (!layerExists(layerName)) {
 			 // different load methods depending on the type of data being loaded
-			switch (layertype) {
+			switch (layerType) {
 					case "vector":
 						loadGeoJSONLayer(url, tablename, layerName, layerType, fitBounds);
 						break;

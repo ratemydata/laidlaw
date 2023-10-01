@@ -52,13 +52,13 @@ function loadLayers(project,url){
     		let feature = result.features[i];
    			let layername = feature.properties.feature_type;
     		console.log(feature.properties.feature_type);
-
+    		let layerUrl="";
     		if (feature.properties.layer_source=='internal'){
-   				let layerUrl = url+"/getData/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.table_name;
+   				 layerUrl = url+"/brokerData/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
    			}
    			if (feature.properties.layer_source =='API'){
    				// we need to send the centre point of the screen
-   				let layerUrl = url+"/getData/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.table_name;
+   				layerUrl = url+"/getData/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
    			}
    			loadLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
     	}
