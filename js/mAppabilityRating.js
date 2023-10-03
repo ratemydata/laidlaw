@@ -1,166 +1,261 @@
 "use strict";
-function loadMappabilityRating(){
-    let isMapVisible = $('#mapWrapper').is( ":visible" );
+
+function loadMappabilityRating() {
+    let isMapVisible = $('#mapWrapper').is(":visible");
     if (isMapVisible) {
-      let mapCollapse = document.getElementById('mapWrapper');
-      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
-          toggle: true
-      });
-    }
-    //bsMapCollapse.hide();
-
-
-    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
-    if (isGraphVisible){
-      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
-      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
-          toggle: true
-      });
-    }
-    //gsGraphCollapse.hide();
-
-    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
-    if (!isRatingVisible){
-      let ratingCollapse = document.getElementById('mapAbilityWrapper');
-      let gsRatingCollapse = new bootstrap.Collapse(ratingCollapse, {
-          toggle: true
-      });
+        let mapCollapse = document.getElementById('mapWrapper');
+        let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
+            toggle: true
+        });
     }
 
-    document.getElementById("mapAbilityWrapper").innerHTML= `<div><button type="button" class="btn btn-primary ms-4" onclick="closeMappability()">Close Rating</button>`
-     + `<div id="mapAbility" class="vw-100" style="height:calc(100% - 165px);width:100%;border-color='blue';border-width=5px;"> 
-    </div>`;
+    let isGraphVisible = $('#assetDataWrapperWrapper').is(":visible");
+    if (isGraphVisible) {
+        let graphCollapse = document.getElementById('assetDataWrapperWrapper');
+        let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
+            toggle: true
+        });
+    }
 
-    // temporary code - this will be replaced with the rating creation code
-    document.getElementById("mapAbility").innerHTML="the boxes for the ratings will go here";
+    let isRatingVisible = $('#mapAbilityWrapper').is(":visible");
+    if (!isRatingVisible) {
+        let ratingCollapse = document.getElementById('mapAbilityWrapper');
+        let gsRatingCollapse = new bootstrap.Collapse(ratingCollapse, {
+            toggle: true
+        });
+    }
 
-let data = [{ label:0, radius:0.5, color:'#ffffff' }, { label:1, radius:1, color:'#eeff00' }, { label:2, radius:2,color:'#ff0022' }, { label:3, radius:1 , color:'#3300ff'}, { label:4, radius:0.5,  color:'#3300ff' }]
+    document.getElementById("mapAbilityWrapper").innerHTML = `<div><button type="button" class="btn btn-primary ms-4" onclick="closeMappability()">Close Rating</button>`
+        + `<div id="mapAbility" class="vw-100" style="height:calc(100% - 165px);width:100%;border-color='blue';border-width=5px;"></div>`;
+
+    // Integrate HTML structure here
+    document.getElementById("mapAbility").innerHTML += `
+        <div id="mapAbility" class="vw-100" style="height:calc(100% - 165px);width:100%;border-color='blue';border-width=5px;">
+            <style>
+                #layout-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                }
+                #chart-container {
+                    width: 700px;
+                    height: 700px;
+                }
+                #input-container {
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    justify-content: center;
+                }
+                .input-container {
+                    margin: 0;
+                }
+                #action-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                    margin-top: 20px;
+                }
+                #weighted-mean {
+                    font-size: 16px;
+                    color: black;
+                }
+            </style>
+            <div id="layout-container">
+                <div id="input-container">
+                    <div class="input-container">
+                        <div style="display: inline-block; width: 12px; height: 12px; background-color: ${d3.schemeCategory10[0]}; margin-right: 5px;"></div>
+                        <label for="rating1">Data format:</label>
+                        <input type="number" id="rating1" min="0" max="5" step="1">
+                    </div>
+                    <div class="input-container">
+                        <div style="display: inline-block; width: 12px; height: 12px; background-color: ${d3.schemeCategory10[1]}; margin-right: 5px;"></div>
+                        <label for="rating2">Pre-processing time:</label>
+                        <input type="number" id="rating2" min="0" max="5" step="1">
+                    </div>
+                    
+                    <div class="input-container">
+                        <div style="display: inline-block; width: 12px; height: 12px; background-color: ${d3.schemeCategory10[2]}; margin-right: 5px;"></div>
+                        <label for="rating3">Spatial density:</label>
+                        <input type="number" id="rating3" min="0" max="5" step="1">
+                    </div>
+                    
+                    <div class="input-container">
+                        <div style="display: inline-block; width: 12px; height: 12px; background-color: ${d3.schemeCategory10[3]}; margin-right: 5px;"></div>
+                        <label for="rating4">Geographical relevance:</label>
+                        <input type="number" id="rating4" min="0" max="5" step="1">
+                    </div>
+                    
+                    <div class="input-container">
+                        <div style="display: inline-block; width: 12px; height: 12px; background-color: ${d3.schemeCategory10[4]}; margin-right: 5px;"></div>
+                        <label for="rating5">Choice of representation:</label>
+                        <input type="number" id="rating5" min="0" max="5" step="1">
+                    </div>
+
+                    <div class="input-container">
+                        <div style="display: inline-block; width: 12px; height: 12px; background-color: ${d3.schemeCategory10[5]}; margin-right: 5px;"></div>
+                        <label for="rating6">Time density:</label>
+                        <input type="number" id="rating6" min="0" max="5" step="1">
+                    </div>
+
+                    <div id="action-container">
+                        <button id="calculate-button">Calculate</button>
+                        <div id="weighted-mean"></div>
+                    </div>
+                </div>
+                <div id="chart-container">
+                    <svg id="chart"></svg>
+                </div>
+            </div>
+        </div>
+    `; 
 
 
-// multiply the radius by 100 to create a large pie
-let arc = d3.arc()
-  .innerRadius(0)
-  .outerRadius(function (d,i) { 
-      return d.data.radius*100
-  });
-  
- 
-let pie = d3.pie()
-  .sort(null)
-  .value(function(d) { return d.radius; });
+    // Integrate JavaScript logic here
+    const factors = [
+        { label: "Factor 1", weighting: 0.25 },
+        { label: "Factor 2", weighting: 0.25 },
+        { label: "Factor 3", weighting: 0.2 },
+        { label: "Factor 4", weighting: 0.1 },
+        { label: "Factor 5", weighting: 0.1 },
+        { label: "Factor 6", weighting: 0.1 }
+    ];
 
-    
-//code source adapted from: https://stackoverflow.com/questions/41268437/d3-concentric-nested-donut-chart
-//https://stackoverflow.com/questions/36327948/draw-circles-inside-pie-d3-chart
-//https://stackoverflow.com/questions/41427354/how-to-add-a-circle-in-the-middle-of-donut-chart-and-fill-it-in-d3-js
-//https://stackoverflow.com/questions/58985805/d3-js-create-a-pie-chart-where-each-slice-has-a-different-radial-gradient-radiu
+    const chartContainer = document.getElementById('chart-container');
+    const chart = document.getElementById('chart');
+    const weightedMean = document.getElementById('weighted-mean');
 
- let svg =  d3.select('#mapAbility').append('svg').attr('width',1500).attr('height',1500)
+    const width = chartContainer.offsetWidth;
+    const height = chartContainer.offsetHeight;
+    const radius = Math.min(width, height) / 2;
 
+    const colorScheme = d3.schemeCategory10;
 
-// add the actual pie to the SVG 
-// move it to 500,500 so that it is centered in the DIV
-// path is a sort of join the dots option to draw the graphics
-// so we start by selecting any existing paths and then adding a new path for this pie chart
- svg.selectAll('path')
-    .data(pie(data))
-    .enter()
-    .append('path')
-        .attr('d',arc)
-        .attr('transform','translate(500,500)')
-        .attr('fill', function(d){ return(d.data.color) })
-        .attr('stroke','black')
-    .append("g")
-        .attr('transform','translate(0,0)')
+    const pie = d3.pie()
+        .value(d => d.weighting)
+        .sort(null);
 
-// add concentric circles
-// this should probably be inside a loop
-// the radius value in the data is multiplied by 100 to give the radius of the arc
-// so for the concentric circles you need to find the highest radius value
-// multiply by 100 and then divide that by the number of concentric circles you want
-// cx and cy are the same values as the 'translate' option above - i.e. where the center of the pie was moved to
+    const arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius((d, i) => (d.data.rating / 5) * radius)
+        .cornerRadius(8)
+        .padAngle(0.02);
 
-svg.append("svg:circle")
-    .attr("cx", 500)
-    .attr("cy", 500)
-    .attr("r", 20)
-    .attr('fill','none')
-    .attr('stroke','black')
-    .attr("class", "white-circle")
-    .attr("stroke-width",5)
+    const svg = d3.select('#chart')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-svg.append("svg:circle")
-    .attr("cx", 500)
-    .attr("cy", 500)
-    .attr("r", 50)
-    .attr('fill','none')
-    .attr('stroke','black')
-    .attr("class", "white-circle")
-    .attr("stroke-width",5)
+    const radarCircles = [1, 2, 3, 4, 5];
+    const radarLines = factors.length;
 
+    const radarCircleData = svg.selectAll('.radar-circle')
+        .data(radarCircles)
+        .enter()
+        .append('circle')
+        .attr('class', 'radar-circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', d => (d / 5) * radius)
+        .style('fill', 'none')
+        .style('stroke', '#000')
+        .style('stroke-width', '1px')
+        .style('stroke-opacity', '0.3');
 
-svg.append("svg:circle")
-    .attr("cx", 500)
-    .attr("cy", 500)
-    .attr("r", 100)
-    .attr('fill','none')
-    .attr('stroke','black')
-    .attr("class", "white-circle")
-    .attr("stroke-width",5)
+    const radarLineData = d3.range(radarLines).map(d => {
+        const angle = (d / radarLines) * Math.PI * 2;
+        return [
+            { x: 0, y: 0 },
+            { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius }
+        ];
+    });
 
+    const radarLabelsData = svg.selectAll('.radar-label')
+        .data(radarCircles)
+        .enter()
+        .append('text')
+        .attr('class', 'radar-label')
+        .attr('x', 0)
+        .attr('y', d => -((d / 5) * radius)+10)
+        .attr('dy', '0.3em')
+        .text(d => d);
 
-svg.append("svg:circle")
-    .attr("cx", 500)
-    .attr("cy", 500)
-    .attr("r", 150)
-    .attr('fill','none')
-    .attr('stroke','black')
-    .attr("class", "white-circle")
-    .attr("stroke-width",5)
+    const chartSectors = svg.selectAll('path')
+        .data(pie(factors))
+        .enter()
+        .append('path')
+        .attr('d', arc)
+        .attr('fill', (d, i) => {
+            const color = d3.color(colorScheme[i]);
+            color.opacity = 0.8;
+            return color + '';
+        });
 
+    function calculateWeightedMean(ratings) {
+        let weightedSum = 0;
+        let totalWeight = 0;
 
-svg.append("svg:circle")
-    .attr("cx", 500)
-    .attr("cy", 500)
-    .attr("r", 300)
-    .attr('fill','none')
-    .attr('stroke','black')
-    .attr("class", "white-circle2")
-    .attr("stroke-width",5)
+        ratings.forEach((rating, i) => {
+            weightedSum += rating * factors[i].weighting;
+            totalWeight += factors[i].weighting;
+        });
 
+        return (weightedSum / totalWeight).toFixed(2);
+    }
 
+    function updateChart() {
+        const ratings = factors.map((factor, i) => parseInt(document.getElementById(`rating${i + 1}`).value));
+
+        const updatedData = factors.map((factor, i) => ({
+            label: factor.label,
+            weighting: factor.weighting,
+            rating: ratings[i]
+        }));
+
+        chartSectors.data(pie(updatedData))
+            .transition()
+            .duration(500)
+            .attrTween('d', function (d) {
+                const interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                return function (t) {
+                    return arc(interpolate(t));
+                };
+            });
+
+        const weightedMeanValue = calculateWeightedMean(ratings);
+        weightedMean.innerHTML = `Weighted Mean: ${weightedMeanValue}`;
+    }
+
+    document.getElementById('calculate-button').addEventListener('click', updateChart);
 }
 
-
-function closeMappability(){
-      let isMapVisible = $('#mapWrapper').is( ":visible" );
+function closeMappability() {
+    let isMapVisible = $('#mapWrapper').is(":visible");
     if (!isMapVisible) {
-      let mapCollapse = document.getElementById('mapWrapper');
-      let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
-          toggle: true
-      });
-    }
-    //bsMapCollapse.hide();
-
-
-    let isRatingVisible = $('#mapAbilityWrapper').is( ":visible" );
-    if (isRatingVisible){
-      let ratingCollapse = document.getElementById('mapAbilityWrapper');
-      let rsratingCollapse = new bootstrap.Collapse(ratingCollapse, {
-          toggle: true
-      });
+        let mapCollapse = document.getElementById('mapWrapper');
+        let bsMapCollapse = new bootstrap.Collapse(mapCollapse, {
+            toggle: true
+        });
     }
 
-    let isGraphVisible = $('#assetDataWrapperWrapper').is( ":visible" );
-    if (isGraphVisible){
-      let graphCollapse = document.getElementById('assetDataWrapperWrapper');
-      let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
-          toggle: true
-      });
+    let isRatingVisible = $('#mapAbilityWrapper').is(":visible");
+    if (isRatingVisible) {
+        let ratingCollapse = document.getElementById('mapAbilityWrapper');
+        let rsratingCollapse = new bootstrap.Collapse(ratingCollapse, {
+            toggle: true
+        });
     }
 
-
-
+    let isGraphVisible = $('#assetDataWrapperWrapper').is(":visible");
+    if (isGraphVisible) {
+        let graphCollapse = document.getElementById('assetDataWrapperWrapper');
+        let gsGraphCollapse = new bootstrap.Collapse(graphCollapse, {
+            toggle: true
+        });
+    }
 }
-
-
