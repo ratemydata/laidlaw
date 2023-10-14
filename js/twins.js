@@ -12,14 +12,23 @@ function loadProject(){
 
 function getProjectsURL(project){
 	// get the URL of this side so that we can get the API URL for the data component of the software
-	let currentURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getProjectsAPI"
-	console.log(currentURL);
+	// first check to see if there is a parameter in the browser already
+	// if not try the server 
 
-    $.ajax({url: currentURL, crossDomain: true,success: function(result){
-    	console.log(result);
-	 	zoomToExtents(project, result);
-	} // end of the succes function
-	}); // end of the ajax call
+	let urlParams = new URLSearchParams(queryString);
+	if (urlParams.get('projectsAPI')) {
+		let projectsURL=urlParams.get('projectsAPI');
+		zoomToExtents(project, projectsURL);	
+	}
+	else {
+ 		// query the server for the URL
+ 		let currentURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/"))+ "/getProjectsAPI";
+ 		$.ajax({url: currentURL, crossDomain: true,success: function(result){
+		    	console.log(result);
+			 	zoomToExtents(project, result);
+			} // end of the succes function
+		}); // end of the ajax call
+	}
 }
 
 function zoomToExtents(project, url){
