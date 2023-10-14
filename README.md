@@ -1,12 +1,12 @@
 # m(App) My Data
 
-Demonstrating the power of location for Minimal Interoperability Mechanisms
+## Demonstrating the power of location for Minimal Interoperability Mechanisms
 
-Option 1 - click the Map Layers > Load Layer option, give the layer a name and type in a URL of an online GeoJSON resource
+1. Option 1 - click the Map Layers > Load Layer option, give the layer a name and type in a URL of an online GeoJSON resource
 
-Option 2 - upload the GeoJSON file to the repository, in the data directory, then to visualise click the Map Layers > Load Layer option, give the layer a name and type in data/geojson file name (only available for local administrators)
+2. Option 2 - upload the GeoJSON file to the repository, in the data directory, then to visualise click the Map Layers > Load Layer option, give the layer a name and type in data/geojson file name (only available for local administrators)
 
-Option 3 - click on a link below to view one of the pre-defined projects
+3. Option 3 - click on a link below to view one of the pre-defined projects
 
 <a href="https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://209.97.179.111/broker/projects&databrokerAPI=https://209.97.179.111/broker/data" target="_blank">Sample Water datasets for England</a>
 
