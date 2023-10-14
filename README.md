@@ -1,6 +1,6 @@
-# broker front end
+# m(App) My Data
 
-Basic loader for GeoJSON data onto Leaflet
+Demonstrating the power of location for Minimal Interoperability Mechanisms
 
 Option 1 - click the Map Layers > Load Layer option, give the layer a name and type in a URL of an online GeoJSON resource
 
