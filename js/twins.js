@@ -15,9 +15,10 @@ function getProjectsURL(project){
 	// first check to see if there is a parameter in the browser already
 	// if not try the server 
 
-	let urlParams = new URLSearchParams(queryString);
-	if (urlParams.get('projectsAPI')) {
-		let projectsURL=urlParams.get('projectsAPI');
+	const params = Object.fromEntries(new URLSearchParams(location.search));
+	if (params['projectsAPI']) {
+		let projectsURL=params['projectsAPI'];
+		console.log("projcets URL"+projectsURL);
 		zoomToExtents(project, projectsURL);	
 	}
 	else {
@@ -51,15 +52,30 @@ function zoomToExtents(project, url){
 
 function loadLayers(project,projectURL){
 	// get the URL of the data broker first
-	let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
-	console.log(brokerURL);
-    $.ajax({url: brokerURL, crossDomain: true,success: function(result){
-			// load the data 
-			// once complete add the layer to the layer control list
-			let dataURL = result;
+	const params = Object.fromEntries(new URLSearchParams(location.search));
+	if (params['databrokerAPI']) {
+		let dataURL=params['databrokerAPI'];
+		let url=projectURL+"/layerlist/"+project;
+		loadEachLayer(project,url, dataURL);
+	}
+	else {
+			let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
+			console.log(brokerURL);
+    		$.ajax({url: brokerURL, crossDomain: true,success: function(result){
+    			// load the data 
+				// once complete add the layer to the layer control list
+				let dataURL = result;
+				let url=projectURL+"/layerlist/"+project;
+				loadEachLayer(project, url,dataURL);
+				} // end of the success function
+			});
+    } // data location param is in the URL
+} // end of loadlayers
 
+
+function loadEachLayer(project, url, dataURL){
 			// get the layer list using the project url
-			let url=projectURL+"/layerlist/"+project;
+
 			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result){
 		    	console.log(result.features[0]);
 				// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
@@ -80,6 +96,4 @@ function loadLayers(project,projectURL){
 		    	}
 			} // end of the succes function
 			});
-		} // end of the success function
-	});
-}
+} // end of load each layer
