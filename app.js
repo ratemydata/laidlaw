@@ -27,6 +27,9 @@ app.get('/getProjectsAPI',function (req,res) {
 	res.send(process.env['PROJECTS_API']);
 });
 
+app.get('/getDataBrokerAPI',function (req,res) {
+	res.send(process.env['DATA_BROKER_API']);
+});
 
 
 // adding functionality to log the requests
