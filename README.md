@@ -1,4 +1,4 @@
-# laidlaw
+# broker front end
 
 Basic loader for GeoJSON data onto Leaflet
 
