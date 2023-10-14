@@ -8,5 +8,5 @@ Option 2 - upload the GeoJSON file to the repository, in the data directory, the
 
 Option 3 - click on a link below to view one of the pre-defined projects
 
-[Sample Water datasets for England](https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://209.97.179.111/broker/projects&databrokerAPI=https://209.97.179.111/broker/data)
+[Sample Water datasets for England](https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://209.97.179.111/broker/projects&databrokerAPI=https://209.97.179.111/broker/data){:target="_blank"}
 
