@@ -10,5 +10,4 @@ Option 3 - click on a link below to view one of the pre-defined projects
 
 <a href="https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://209.97.179.111/broker/projects&databrokerAPI=https://209.97.179.111/broker/data" target="_blank">Sample Water datasets for England</a>
 
-[Sample Water datasets for England](https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://209.97.179.111/broker/projects&databrokerAPI=https://209.97.179.111/broker/data){:target="_blank"}
 
