@@ -16,7 +16,9 @@ function getProjectsURL(project){
 	// if not try the server 
 
 	const params = Object.fromEntries(new URLSearchParams(location.search));
+	console.log(params['projectsAPI']);
 	if (params['projectsAPI']) {
+		console.log("parameter exits");
 		let projectsURL=params['projectsAPI'];
 		console.log("projcets URL"+projectsURL);
 		zoomToExtents(project, projectsURL);	
