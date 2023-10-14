@@ -2,7 +2,7 @@
 let mymap; // stores the leaflet map
 let layerControl; // the leaflet layer control
 function loadMap() {
-    console.log("projects api is " +process.env.PROJECTS_API);
+    console.log("projects api is " +window.env.PROJECTS_API);
 
     // note the ordering of events below - the load event is set when the map is first initiatlised i.e. zoom etc set
     // so the load event needs to be set BEFORE the setView
