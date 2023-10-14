@@ -10,7 +10,8 @@ addLayerBtn.addEventListener('click', (event) => {
   		document.getElementById("layerToLoad").close(); 
 
   		// call the load layer code
-  		loadLayer(url,layerName);
+  		// use the url as the internal layer name
+  		loadLayer(url,url,layerName,'vector',true);
 }); // end of the listener
 
 
