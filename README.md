@@ -8,7 +8,7 @@
 
 3. Option 3 - click on a link below to view one of the pre-defined projects
 
-<a href="https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://209.97.179.111/broker/data" target="_blank">Sample Water datasets for England</a>
+<a href="https://ratemydata.github.io/laidlaw/bootStrap.html?project=water&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://ratemydata.org/broker/data" target="_blank">Sample Water datasets for England</a>
 
 [Sample water data - Thames Region](https://ratemydata.github.io/mAppMyData/bootStrap.html?project=water-thames&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://ratemydata.org/broker/data)
 
