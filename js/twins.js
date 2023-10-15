@@ -130,10 +130,12 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		    			layerUrl = dataURL+"/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id; 
 		   			}
+			
 		   			if (feature.properties.layer_source =='API'){
 		   				// we need to send the centre point of the screen
 		   				layerUrl = url+"/external/API/vector/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		   			}
+				console.log(layerUrl);
 		   			if (feature.properties.dimension=="2D" && (projectDimension=="2D" || projectDimension=="Both")){
 		   				load2DLayer(layerUrl, feature, false);
 		   			}
