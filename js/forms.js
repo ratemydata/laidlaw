@@ -11,7 +11,32 @@ addLayerBtn.addEventListener('click', (event) => {
 
   		// call the load layer code
   		// use the url as the internal layer name
-  		loadLayer(url,url,layerName,'vector',true);
+  		//load2DLayer(url,url,layerName,'vector',true);
+  		// to conform with the layers in our broker system, create a feature with the required information for the layer
+  		let obj = new Object();
+  		obj.type = "Feature";
+  		let properties = new Object();
+  		properties.dimension="2D";
+  		properties.feature_type=layerName;
+  		properties.geom_column="geometry";
+  		properties.id=0;
+  		properties.layer_colour="BLUEVIOLET";
+  		properties.layer_source="external";
+  		properties.layer_type="vector";
+  		properties.layer_transparency="0.5";
+  		properties.location_group_name="Outdoor";
+  		properties.on_when_loaded =true;
+  		properties.project_id=0;
+  		properties.project_name="";
+  		properties.schema="";
+  		properties.tablename=url;
+  		obj.properties = properties;
+  		console.log(obj.properties.feature_type);
+  		let feature = JSON.stringify(obj);
+  		console.log(feature);
+
+  		load2DLayer(url, obj, true)
+
 }); // end of the listener
 
 

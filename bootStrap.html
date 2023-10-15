@@ -36,6 +36,12 @@
      <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
      crossorigin=""></script>
+    
+
+    <!-- code for cesium -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
 
 <style>
     body {
@@ -85,8 +91,17 @@
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Add Layers</a>            
             <div class="dropdown-menu bg-transparent border-0">
-              <a class="dropdown-item" class="dropdown-item" href="#" onclick="showLayerLoadDialog()";>Load Layer</a>
+              <a class="dropdown-item" class="dropdown-item" href="#" onclick="showLayerLoadDialog()";>Load 2D GeoJSON Layer</a>
 
+            </div>
+          </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <div class="nav-item dropdown collapse show" id="swapmap">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Swap Map View</a>            
+            <div class="dropdown-menu bg-transparent border-0">
+              <div id="2D" class="collapse show"><a class="dropdown-item" class="dropdown-item" href="#"  onclick="showLeaflet()";>Show 2D Map</a></div>
+              <div id="3D" class="collapse show"><a class="dropdown-item" class="dropdown-item" href="#"  onclick="showCesium()";>Show 3D Map</a></div>
             </div>
           </div>
         <!-- Nav Item - Pages Collapse Menu -->
@@ -139,7 +154,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/icon.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Your UCL Username</span>
+                            <span class="d-none d-lg-inline-flex">Login</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
@@ -161,6 +176,15 @@
     <div  id="mapid"  class=" bg-danger" style="height:calc(100% - 65px);">
     </div> <!-- map id -->
     </div> <!-- map wrapper -->
+
+    <div id="cesiumWrapper" class="col vh-100 collapse hide" aria-expanded="true" style="margin-top:65px;z-order:0;">
+    <div  id="cesium"  class=" bg-danger" style="height:calc(100% - 65px);">
+    </div> <!-- cesium id -->
+    </div> <!-- cesium wrapper -->
+
+
+
+
     <div id="assetDataWrapperWrapper" class="col vh-100 collapse hide" aria-expanded="true" style="background-color:lightgray; margin-top:65px;margin-bottom:100px;z-order:0;">
     </div> <!-- asset data wrapper wrapper wrapper -->
 
@@ -242,10 +266,14 @@
 <script src="js/graph.js"></script>
 <script src="js/arrays.js"></script>
 <script src="js/utilities.js"></script>
-<script src="js/layers.js"></script>
+<script src="js/leafletLayers.js"></script>
 <script src="js/forms.js"></script>
 <script src="js/mAppabilityRating.js"></script>
 <script src="js/twins.js"></script>
+<script src="js/cesium.js"></script>
+<script src="js/mapLink.js"></script>
+<script src="js/cesiumLayers.js"></script>
+<script src="js/menus.js"></script>
 <script src="https://d3js.org/d3.v6.min.js"></script>  
 </body>
 

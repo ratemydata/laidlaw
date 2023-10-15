@@ -36,6 +36,15 @@ function hideAllDivs(){
       });
     }
 
+    let isCesiumVisible = $('#cesiumWrapper').is( ":visible" );
+    if (isCesiumVisible ){
+      let cesiumCollapse = document.getElementById('cesiumWrapper');
+      let csCesiumCollapse = new bootstrap.Collapse(cesiumCollapse, {
+          toggle: true
+      });
+    }
+
+
     // then switch on the required DIV
 
 }
@@ -52,3 +61,17 @@ function showDiv(divName){
   });
 
 }
+
+
+
+/**
+* function to load Cesium and Leaflet maps when the page load has completed
+* 
+*/
+// makes sure that the map is only loaded once the page has completely loaded
+// i.e. the div for the map must exist before the code tries to load the map
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("listener domcontentloaded");
+  loadMap();
+  loadCesium();
+}, false);
