@@ -15,6 +15,7 @@ function zoomToLeafletExtents(boundingBox){
 }
 
 function load2DLayer(url, feature, fitBounds){
+	console.log(feature);
 	// add a given layer to the map with the given name
 	// assumes that the data source is geoJSON
 	// url can refer to an external site or
