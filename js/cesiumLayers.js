@@ -28,7 +28,7 @@ function loadCesiumLayer(url, feature,fitBounds){
 	console.log("layer type"+feature.properties.layer_type);
 
 	if (feature.properties.layer_type == "tileset"){
-	    loadTileset()
+	    loadTileset(url, feature)
     	.then(
 			(tileSet) =>{
 		    	viewer.scene.primitives.add(tileSet);   
@@ -91,10 +91,32 @@ loadGeoJSON = (url,feature)=> {
     }); // end of the promise
 }
 
-loadTileset = () => {
-    return new Promise((resolve, reject) => {
-   	    const tileSet = Cesium.createOsmBuildingsAsync();
-   	    resolve(tileSet);
+loadTileset = (url,feature) => {
+    	console.log(url);
 
+    return new Promise((resolve, reject) => {
+	    let tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({url : url}));
+	    let style = new Cesium.Cesium3DTileStyle();
+		// Override color expression with a string
+		let featureColour = 'color("'+feature.properties.layer_colour+'",'+feature.properties.layer_transparency+')';
+		console.log("feature colour "+featureColour);
+		style.color = featureColour;
+  		style.pointSize = Cesium.defaultValue(style.pointSize, 5.0);
+		tileset.style = style;
+//	  	tileset.readyPromise
+//	  		.then(function(onetileset) {
+				console.log("tiles");
+	    		var heightOffset = 0.0;
+        		tileset.pointCloudShading.attenuation = true;
+  				var boundingSphere = tileset.boundingSphere;
+				var cartographic = Cesium.Cartographic.fromCartesian(boundingSphere.center);
+				var surface = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, 0.0);
+				var offset = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, heightOffset);
+				var translation = Cesium.Cartesian3.subtract(offset, surface, new Cesium.Cartesian3());
+				tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
+        		viewer.camera.flyToBoundingSphere(tileset.root.boundingSphere);
+//				return onetileset;
+//			});
+   	    resolve(tileSet);
     }); // end of the promise
 } // end of add building tileset

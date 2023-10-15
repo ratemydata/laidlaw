@@ -10,10 +10,15 @@ function loadProject(){
 	}
 }
 
+/**
+ * @function getProjectsURL
+ * @params project - the name of the project
+ *
+ *  get the URL of this side so that we can get the API URL for the data component of the software
+ *	first check to see if there is a parameter in the browser already
+ *	if not try the server 
+*/
 function getProjectsURL(project){
-	// get the URL of this side so that we can get the API URL for the data component of the software
-	// first check to see if there is a parameter in the browser already
-	// if not try the server 
 
 	const params = Object.fromEntries(new URLSearchParams(location.search));
 	console.log(params['projectsAPI']);
@@ -21,31 +26,33 @@ function getProjectsURL(project){
 		console.log("parameter exits");
 		let projectsURL=params['projectsAPI'];
 		console.log("projcets URL"+projectsURL);
-		zoomToExtents(project, projectsURL);	
+		getProjectDetails(project, projectsURL);	
 	}
 	else {
  		// query the server for the URL
  		let currentURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/"))+ "/getProjectsAPI";
  		$.ajax({url: currentURL, crossDomain: true,success: function(result){
 		    	console.log(result);
-			 	zoomToExtents(project, result);
+			 	getProjectDetails(project, result);
 			} // end of the succes function
 		}); // end of the ajax call
 	}
 }
 
 /**
- * @function zoomToExtents
+ * @function getProjectDetails
  * @param project
  * @param url
  * @param projectDimension
+ * get project information
  * zoom to the extents of the project
+ * also get the project dimension
  * will do this on the leaflet map, cesium map or both depending on projectDimension
  * 
  */
-function zoomToExtents(project, url){
+function getProjectDetails(project, url){
 	// call the API to get the project extents and zoom to them
-	let currentURL = url+"/extents/"+project
+	let currentURL = url+"/projectDetails/"+project
     $.ajax({dataType:"json", url: currentURL, crossDomain: true,success: function(result){
     	console.log(result.features[0]);
     	let projectDimension = result.features[0].properties.dimension;
@@ -112,9 +119,13 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		   			let layername = feature.properties.feature_type;
 		    		console.log(feature.properties.feature_type);
 		    		let layerUrl="";
-		    		if (feature.properties.layer_source=='internal'){
+		    		if (feature.properties.layer_source=='internal' && feature.properties.layer_type =="vector"){
 		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		    			layerUrl = dataURL+"/internal/vector/"+feature.properties.id; 
+		   			}
+		    		if (feature.properties.layer_source=='internal' && feature.properties.layer_type =="tileset"){
+		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
+		    			layerUrl = dataURL+"/internal/tileset/"+feature.properties.id; 
 		   			}
 		   			if (feature.properties.layer_source =='API'){
 		   				// we need to send the centre point of the screen
