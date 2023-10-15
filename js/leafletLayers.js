@@ -94,7 +94,7 @@ let layerName = feature.properties.feature_type;
 						let style= {
 				        fillColor: feature.properties.layer_colour,
 				        weight: 2,
-        				opacity: 1,
+        				opacity: feature.properties.layer_transparency,
         				color: feature.properties.layer_colour,
 				        dashArray: '3',
         				fillOpacity: feature.properties.layer_transparency
@@ -102,7 +102,7 @@ let layerName = feature.properties.feature_type;
 						let newLayer = L.geoJSON(result, {
 							style: style,
 		 					onEachFeature: function (f, l) {
-		   						l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+		   						l.bindPopup('<b>'+layerName+'</b><pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
 
 		 					},
 		 						  pointToLayer: function (feature, latlng) {
