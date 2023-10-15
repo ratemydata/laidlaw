@@ -118,7 +118,7 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		
 			// get the layer list using the project url
 			console.log("project dimension load each layer "+projectDimension);
-			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result, projectDimension){
+			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result){
 		    	console.log(result.features[0]);
 				// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
 				//let projectDimension = $(projectDimension);
