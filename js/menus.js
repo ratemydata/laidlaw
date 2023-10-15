@@ -8,7 +8,7 @@
 function switchOffMenuOption(menuName){
       let isDivVisible = $('#'+menuName).hasClass('show');
       console.log("menu visible "+ isDivVisible);
-      if (ifDivVisible){
+      if (isDivVisible){
 	      let menuCollapse = document.getElementById(menuName);
 	      let mnMenuCollapse = new bootstrap.Collapse(menuCollapse, {
 	          toggle: true
