@@ -120,7 +120,7 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result, projectDimension){
 		    	console.log(result.features[0]);
 				// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
-				let projectDimension = $(projectDimension);
+				//let projectDimension = $(projectDimension);
 
 				for (let i=0;i< result.features.length;i++){
 		    		let feature = result.features[i];
