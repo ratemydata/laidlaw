@@ -132,7 +132,7 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		   				layerUrl = url+"/external/API/vector/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		   			}
 		   			if (feature.properties.dimension=="2D" && (projectDimension=="2D" || projectDimension=="Both")){
-		   				load2DLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
+		   				load2DLayer(layerUrl, feature, false);
 		   			}
 		   			if (projectDimension=="3D" || projectDimension=="Both"){
 		   				console.log("3D loading now");
