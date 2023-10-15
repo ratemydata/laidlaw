@@ -36,6 +36,15 @@ function hideAllDivs(){
       });
     }
 
+    let isCesiumVisible = $('#cesiumWrapper').is( ":visible" );
+    if (isCesiumVisible ){
+      let cesiumCollapse = document.getElementById('cesiumWrapper');
+      let csCesiumCollapse = new bootstrap.Collapse(cesiumCollapse, {
+          toggle: true
+      });
+    }
+
+
     // then switch on the required DIV
 
 }
