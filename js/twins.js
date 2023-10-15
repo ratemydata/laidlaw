@@ -54,11 +54,11 @@ function zoomToExtents(project, url){
     	switch (projectDimension){
 			case "2D":
 				zoomToLeafletExtents(result, project);
-				switchOffMenuOption("3D");
+				switchOffMenuOption("swapmap");
 				break;
 			case "3D":
 				zoomToCesiumExtents(result,project);
-				switchOffMenuOption("2D");
+				switchOffMenuOption("swapmap");
 				break;
 			case "both":
 				zoomToLeafletExtents(result, project);
@@ -67,7 +67,7 @@ function zoomToExtents(project, url){
 			default:
 				// assume 2D
 				projectDimension = "2D";
-				switchOffMenuOption("3D");
+				switchOffMenuOption("swapmap");
 				zoomToLeafletExtents(result, project);
     	}
     	loadLayers(project, url, projectDimension);

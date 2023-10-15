@@ -10,4 +10,7 @@ function switchOffMenuOption(menuName){
       let mnMenuCollapse = new bootstrap.Collapse(menuCollapse, {
           toggle: true
       });
+
+      
+
 }
