@@ -30,20 +30,32 @@ function loadCesiumLayer(url, feature,fitBounds){
 
 	if (feature.properties.layer_type == "tileset"){
 		console.log("**********************************TILESET");
-	    loadTileset(url, feature)
+		// get the URL of the actual tileset
+		$.ajax({url: url, crossDomain: true,success: function(result){
+			console.log("result is "+ result.text);
+	    loadTileset(result, feature)
     	.then(
-			(tileSet) =>{
-		    	viewer.scene.primitives.add(tileSet);   
+			(tileset) =>{
+		    	//viewer.scene.primitives.add(tileSet); 
+		    				viewer.scene.primitives.add(tileset);
+		    				// styling can only happen once the tile is added
+		    				styleTiles(tileset, feature);
+	
+							// Set the camera to view the newly added tileset
+							//viewer.camera.viewBoundingSphere(tileset.boundingSphere, new Cesium.HeadingPitchRange(0, -0.5, 0));
 		    });
-	}
+    } // end of success function 
+    }); // end get teh URL for hte actual tileset from the broker
+
+	}  // feature.properties.tileset
 	if (feature.properties.layer_type =="vector"){
 		loadGeoJSON(url,feature)
     	.then(
 			(dataSource) =>{
                   viewer.dataSources.add(dataSource);
-		    });
+		    }); 
 
-	}
+	} 
 
 }
 
@@ -52,6 +64,7 @@ loadGeoJSON = (url,feature)=> {
             var layerURL = url; 
             console.log(layerURL);
             var dataSource = new Cesium.GeoJsonDataSource(feature.properties.feature_type);
+
 			console.log(feature.properties.layer_colour);
 			var options = [];
 				options.push({
@@ -80,8 +93,20 @@ loadGeoJSON = (url,feature)=> {
         		    // can be run once the layer is loaded
 //             		layernamex[i] =feature.properties.feature_type;
 //            		console.log("layer name is "+layernamex[i]);
+
+            		// fix a bug in Cesium
+            		// https://github.com/reearth/resium/issues/115
+/*            		for (var i = 0; i < dataSource.entities.values.length; i++) {
+										var entity = dataSource.entities.values[i];
+										console.log(i);
+										if (Cesium.defined(entity.polygon)) {
+														entity.polygon.arcType = Cesium.ArcType.GEODESIC;
+										}
+								}
+*/
+
 		            console.log("just before setting the name"+feature.properties.feature_type);
-       		        dataSource.clampToGround=false;
+       		        dataSource.clampToGround=true;
                     dataSource._name = feature.properties.feature_type;
 			        let entities = dataSource.entities.values;
         			console.log(entities);
@@ -94,32 +119,50 @@ loadGeoJSON = (url,feature)=> {
 }
 
 loadTileset = (url,feature) => {
-    	console.log("**********************************");
-    	console.log(url);
-
+		console.log("tileset loading "+url);
     return new Promise((resolve, reject) => {
-	    let tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({url : url}));
-	    let style = new Cesium.Cesium3DTileStyle();
-		// Override color expression with a string
-		let featureColour = 'color("'+feature.properties.layer_colour+'",'+feature.properties.layer_transparency+')';
-		console.log("feature colour "+featureColour);
-		style.color = featureColour;
-  		style.pointSize = Cesium.defaultValue(style.pointSize, 5.0);
-		tileset.style = style;
+	  let tileset =  Cesium.Cesium3DTileset.fromUrl(url);
+	  //  let tileset = new Cesium.Cesium3DTileset.fromUrl(url);
+	 //   viewer.scene.primitives.add(tileset);   
+	 //   console.log(url);
+
+	
+
+
+		//style.color = fillColor;
+  //		style.pointSize = Cesium.defaultValue(style.pointSize, 5.0);
+//		tileset.style = style;
 //	  	tileset.readyPromise
-//	  		.then(function(onetileset) {
+//	  	.then(function(onetileset) {
 				console.log("tiles");
-	    		var heightOffset = 0.0;
-        		tileset.pointCloudShading.attenuation = true;
-  				var boundingSphere = tileset.boundingSphere;
-				var cartographic = Cesium.Cartographic.fromCartesian(boundingSphere.center);
-				var surface = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, 0.0);
-				var offset = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, heightOffset);
-				var translation = Cesium.Cartesian3.subtract(offset, surface, new Cesium.Cartesian3());
-				tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
-        		viewer.camera.flyToBoundingSphere(tileset.root.boundingSphere);
+	    	let heightOffset = 0.0;
+  	//		let boundingSphere = tileset.boundingSphere;
+	//			let cartographic = Cesium.Cartographic.fromCartesian(boundingSphere.center);
+//				let surface = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, 0.0);
+//				let offset = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, heightOf/fset);
+//			let translation = Cesium.Cartesian3.subtract(offset, surface, new Cesium.Cartesian3());
+//				tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
+ //     		viewer.camera.flyToBoundingSphere(tileset.root.boundingSphere);
 //				return onetileset;
 //			});
-   	    resolve(tileSet);
+
+
+
+   	    resolve(tileset);
     }); // end of the promise
 } // end of add building tileset
+
+
+function styleTiles(tileset, feature){
+		let colorString = 'color('+feature.properties.layer_colour+','+feature.properties.layer_transparency+')';
+			console.log (colorString);
+   		tileset.style = new Cesium.Cesium3DTileStyle({  color : colorString });
+/*   		{
+       conditions : [
+       	   ['${id} > 0', 'color("#d65c5c")'],
+           ['true', 'color("#E8F1F2", 0.5)']
+       ]
+   }}); */
+
+}
+
