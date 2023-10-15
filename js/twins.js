@@ -34,19 +34,43 @@ function getProjectsURL(project){
 	}
 }
 
+/**
+ * @function zoomToExtents
+ * @param project
+ * @param url
+ * @param projectDimension
+ * zoom to the extents of the project
+ * will do this on the leaflet map, cesium map or both depending on projectDimension
+ * 
+ */
 function zoomToExtents(project, url){
 	// call the API to get the project extents and zoom to them
 	let currentURL = url+"/extents/"+project
     $.ajax({dataType:"json", url: currentURL, crossDomain: true,success: function(result){
     	console.log(result.features[0]);
-
-    	// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
-    	let extent = new L.GeoJSON();
-    	extent.addData(result.features[0]);
-    	mymap.fitBounds(extent.getBounds());
-
-    	// now load the actual layers
-    	loadLayers(project, url);
+    	let projectDimension = result.features[0].properties.dimension;
+    	console.log(projectDimension);
+    	//zoomToLeafletExtents(result,project);
+    	switch (projectDimension){
+			case "2D":
+				zoomToLeafletExtents(result, project);
+				switchOffMenuOption("3D");
+				break;
+			case "3D":
+				zoomToCesiumExtents(result,project);
+				switchOffMenuOption("2D");
+				break;
+			case "both":
+				zoomToLeafletExtents(result, project);
+				zoomToCesiumExtents(result,project);
+				break;
+			default:
+				// assume 2D
+				projectDimension = "2D";
+				switchOffMenuOption("3D");
+				zoomToLeafletExtents(result, project);
+    	}
+    	loadLayers(project, url, projectDimension);
 	} // end of the succes function
 	}); // end of the ajax call
 }
@@ -94,7 +118,12 @@ function loadEachLayer(project, url, dataURL){
 		   				// we need to send the centre point of the screen
 		   				layerUrl = url+"/external/API/vector/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		   			}
-		   			loadLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
+		   			if (feature.properties.dimension="2D"){
+		   				load2DLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
+		   			}
+
+		   			// load all the layers in 3D no matter what
+		   			loadCesiumLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
 		    	}
 			} // end of the succes function
 			});

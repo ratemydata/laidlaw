@@ -1,9 +1,20 @@
 "use strict";
 let mapLayers = []; // array - stores the layers currently on the map
 
+/**
+ * @function zoomtToLeafletExtents
+ * @params boundingBox
+ * take a geoJSON box and zoom the map to the extents
+ * 
+ */
+function zoomToLeafletExtents(boundingBox){
+    	// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
+    	let extent = new L.GeoJSON();
+    	extent.addData(boundingBox.features[0]);
+    	mymap.fitBounds(extent.getBounds());
+}
 
-
-function loadLayer(url, tablename,layerName, layerType,fitBounds){
+function load2DLayer(url, tablename,layerName, layerType,fitBounds){
 	// add a given layer to the map with the given name
 	// assumes that the data source is geoJSON
 	// url can refer to an external site or
