@@ -121,11 +121,11 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		    		let layerUrl="";
 		    		if (feature.properties.layer_source=='internal' && feature.properties.layer_type =="vector"){
 		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
-		    			layerUrl = dataURL+"/internal/vector/"+feature.properties.id; 
+		    			layerUrl = dataURL+"/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id; 
 		   			}
 		    		if (feature.properties.layer_source=='internal' && feature.properties.layer_type =="tileset"){
 		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
-		    			layerUrl = dataURL+"/internal/tileset/"+feature.properties.id; 
+		    			layerUrl = dataURL+"/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id; 
 		   			}
 		   			if (feature.properties.layer_source =='API'){
 		   				// we need to send the centre point of the screen
