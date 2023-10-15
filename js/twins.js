@@ -137,9 +137,11 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		   			}
 				console.log(layerUrl);
 		   			if (feature.properties.dimension=="2D" && (projectDimension=="2D" || projectDimension=="Both")){
+						console.log("loading 2D");
 		   				load2DLayer(layerUrl, feature, false);
 		   			}
 		   			if (projectDimension=="3D" || projectDimension=="Both"){
+						console.log("lodaing 3D");
 		   				console.log("3D loading now");
 			   			loadCesiumLayer(layerUrl, feature,false);
 		    		}
