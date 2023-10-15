@@ -85,6 +85,8 @@ function getProjectDetails(project, url){
 }
 
 
+
+
 function loadLayers(project,projectURL, projectDimension){
 	// get the URL of the data broker first
 	const params = Object.fromEntries(new URLSearchParams(location.search));
@@ -94,16 +96,19 @@ function loadLayers(project,projectURL, projectDimension){
 		loadEachLayer(project,url, dataURL);
 	}
 	else {
-			let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
-			console.log(brokerURL);
-    		$.ajax({url: brokerURL, crossDomain: true,success: function(result){
+		let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
+		console.log(brokerURL);
+		console.log("pjrect diemnsion before layer load starts "+projectDimension;
+    		$.ajax({url: brokerURL, crossDomain: true,success: succcessCallback});
+		
+		function successCallback (result){
     			// load the data 
 				// once complete add the layer to the layer control list
 				let dataURL = result;
 				let url=projectURL+"/layerlist/"+project;
-				loadEachLayer(project, url,dataURL, $(projectDimension));
-				} // end of the success function
-			});
+				console.log(projectDimension);
+				loadEachLayer(project, url,dataURL, projectDimension);
+		} // end of the success function
     } // data location param is in the URL
 } // end of loadlayers
 
@@ -115,7 +120,9 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result, projectDimension){
 		    	console.log(result.features[0]);
 				// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
-		    	for (let i=0;i< result.features.length;i++){
+				let projectDimension = $(projectDimension);
+
+				for (let i=0;i< result.features.length;i++){
 		    		let feature = result.features[i];
 		   			let layername = feature.properties.feature_type;
 		    		console.log(feature.properties.feature_type);
@@ -123,7 +130,6 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		    		console.log(feature.properties.id);
 		    		console.log(feature.properties.layer_source);
 		    		let layerUrl="";
-				let projectDimension = $(projectDimension);
 		    		if (feature.properties.layer_source=='internal' && feature.properties.layer_type =="vector"){
 		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		    			layerUrl = dataURL+"/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id; 
