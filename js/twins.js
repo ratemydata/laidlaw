@@ -87,7 +87,8 @@ function getProjectDetails(project, url){
 
 
 
-function loadLayers(project,projectURL, projectDimension){
+function loadLayers(project,projectURL, dimension){
+	let projectDimension = dimension;
 	// get the URL of the data broker first
 	const params = Object.fromEntries(new URLSearchParams(location.search));
 	if (params['databrokerAPI']) {
@@ -106,7 +107,7 @@ function loadLayers(project,projectURL, projectDimension){
 				// once complete add the layer to the layer control list
 				let dataURL = result;
 				let url=projectURL+"/layerlist/"+project;
-				console.log(projectDimension);
+				console.log("in success Callback " + projectDimension);
 				loadEachLayer(project, url,dataURL, projectDimension);
 		} // end of the success function
     } // data location param is in the URL
