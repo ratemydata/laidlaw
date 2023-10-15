@@ -13,7 +13,8 @@ function zoomToCesiumExtents(boundingBox, project){
       		viewer.flyTo(dataSource).then(function(dataSource){
       			console.log(viewer.dataSources);
       			viewer.dataSources._dataSources[0].show =false;
-		});
+		
+					});
 	});
 }
 
@@ -28,6 +29,7 @@ function loadCesiumLayer(url, feature,fitBounds){
 	console.log("layer type"+feature.properties.layer_type);
 
 	if (feature.properties.layer_type == "tileset"){
+		console.log("**********************************TILESET");
 	    loadTileset(url, feature)
     	.then(
 			(tileSet) =>{
@@ -92,6 +94,7 @@ loadGeoJSON = (url,feature)=> {
 }
 
 loadTileset = (url,feature) => {
+    	console.log("**********************************");
     	console.log(url);
 
     return new Promise((resolve, reject) => {
