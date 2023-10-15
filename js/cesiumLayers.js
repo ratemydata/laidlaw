@@ -53,6 +53,7 @@ function loadCesiumLayer(url, feature,fitBounds){
     	.then(
 			(dataSource) =>{
                   viewer.dataSources.add(dataSource);
+                  stylePoints(dataSource,feature);
 		    }); 
 
 	} 
@@ -166,3 +167,24 @@ function styleTiles(tileset, feature){
 
 }
 
+/**
+ * @function stylePoints
+ * @param datasource - the geojson layer
+ * @param feature -the data with the style information
+ * style the points added via geoJSON
+ */
+function stylePoints(datasource,feature){
+	var entities = datasource.entities.values;
+	let fillColor = Cesium.Color.fromCssColorString(feature.properties.layer_colour).withAlpha(feature.properties.layer_transparency);
+	let outlineColor = Cesium.Color.fromCssColorString('black');
+	for (var i = 0; i < entities.length; i++) {
+    var entity = entities[i];
+    entity.billboard = undefined;
+    entity.point = new Cesium.PointGraphics({
+        color: fillColor,
+        outlineColor: outlineColor,
+        outlineWidth: 5,
+        pixelSize: 20
+    });
+}
+}
