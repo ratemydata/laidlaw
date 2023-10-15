@@ -12,7 +12,7 @@
 
 [Sample water data - Thames Region](https://ratemydata.github.io/mAppMyData/bootStrap.html?project=water-thames&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://ratemydata.org/broker/data)
 
-[Sampel Water data - UCL area](https://ratemydata.github.io/mAppMyData/bootStrap.html?project=water-ucl&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://ratemydata.org/broker/data)
+[Sample Water data - UCL area](https://ratemydata.github.io/mAppMyData/bootStrap.html?project=water-ucl&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://ratemydata.org/broker/data)
 
 [UK EV Charging Data](https://ratemydata.github.io/mAppMyData/bootStrap.html?project=uk_chargepoints&projectsAPI=https://ratemydata.org/broker/projects&databrokerAPI=https://ratemydata.org/broker/data)
 
