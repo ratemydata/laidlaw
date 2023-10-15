@@ -118,6 +118,9 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 		    		let feature = result.features[i];
 		   			let layername = feature.properties.feature_type;
 		    		console.log(feature.properties.feature_type);
+		    		console.log(feature.properties.layer_type);
+		    		console.log(feature.properties.id);
+		    		console.log(feature.properties.layer_source);
 		    		let layerUrl="";
 		    		if (feature.properties.layer_source=='internal' && feature.properties.layer_type =="vector"){
 		   				 //layerUrl = dataURL+"/internal/vector"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
