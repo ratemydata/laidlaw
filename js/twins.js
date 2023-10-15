@@ -51,7 +51,7 @@ function zoomToExtents(project, url){
     	let projectDimension = result.features[0].properties.dimension;
     	console.log(projectDimension);
     	//zoomToLeafletExtents(result,project);
-    	switch (projectDimension){
+    	switch (projectDimension.toUpperCase()){
 			case "2D":
 				zoomToLeafletExtents(result, project);
 				switchOffMenuOption("swapmap");
@@ -60,7 +60,7 @@ function zoomToExtents(project, url){
 				zoomToCesiumExtents(result,project);
 				switchOffMenuOption("swapmap");
 				break;
-			case "both":
+			case "BOTH":
 				zoomToLeafletExtents(result, project);
 				zoomToCesiumExtents(result,project);
 				break;
