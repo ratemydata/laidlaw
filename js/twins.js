@@ -94,7 +94,7 @@ function loadLayers(project,projectURL, dimension){
 	if (params['databrokerAPI']) {
 		let dataURL=params['databrokerAPI'];
 		let url=projectURL+"/layerlist/"+project;
-		loadEachLayer(project,url, dataURL);
+		loadEachLayer(project,url, dataURL, projectDimension);
 	}
 	else {
 		let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
