@@ -96,12 +96,12 @@ function loadLayers(project,projectURL, projectDimension){
 	else {
 			let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
 			console.log(brokerURL);
-    		$.ajax({url: brokerURL, crossDomain: true,success: function(result){
+    		$.ajax({url: brokerURL, crossDomain: true,indexValue:{dimension:projectDimension},success: function(result){
     			// load the data 
 				// once complete add the layer to the layer control list
 				let dataURL = result;
 				let url=projectURL+"/layerlist/"+project;
-				loadEachLayer(project, url,dataURL, projectDimension);
+				loadEachLayer(project, url,dataURL, this.indexValue.dimension);
 				} // end of the success function
 			});
     } // data location param is in the URL
@@ -109,14 +109,16 @@ function loadLayers(project,projectURL, projectDimension){
 
 
 function loadEachLayer(project, url, dataURL, projectDimension){
+		
 			// get the layer list using the project url
 			console.log("project dimension load each layer "+projectDimension);
-			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result, projectDimension){
+			$.ajax({dataType:"json", url: url, indexValue:{dimension:projectDimension},crossDomain: true,success: function(result, projectDimension){
 		    	console.log(result.features[0]);
 				// note that we have to initialise a new object here - see:  https://gis.stackexchange.com/questions/314946/leaflet-extension-this-callinithooks-is-not-a-function
 		    	for (let i=0;i< result.features.length;i++){
 		    		let feature = result.features[i];
 		   			let layername = feature.properties.feature_type;
+				let projectDimension = this.indexValue.dimension;
 		    		console.log(feature.properties.feature_type);
 		    		console.log(feature.properties.layer_type);
 		    		console.log(feature.properties.id);
