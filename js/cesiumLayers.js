@@ -154,7 +154,7 @@ loadTileset = (url,feature) => {
 
 
 function styleTiles(tileset, feature){
-		let colorString = 'color('+feature.properties.layer_colour+','+feature.properties.layer_transparency+')';
+		let colorString = 'color("'+feature.properties.layer_colour+'",'+feature.properties.layer_transparency+')';
 			console.log (colorString);
    		tileset.style = new Cesium.Cesium3DTileStyle({  color : colorString });
 /*   		{
