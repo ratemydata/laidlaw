@@ -98,7 +98,7 @@ function loadLayers(project,projectURL, projectDimension){
 	else {
 		let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
 		console.log(brokerURL);
-		console.log("pjrect diemnsion before layer load starts "+projectDimension;
+		console.log("pjrect diemnsion before layer load starts "+projectDimension);
     		$.ajax({url: brokerURL, crossDomain: true,success: succcessCallback});
 		
 		function successCallback (result){
