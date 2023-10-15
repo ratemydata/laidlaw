@@ -59,6 +59,8 @@ function zoomToExtents(project, url){
 			case "3D":
 				zoomToCesiumExtents(result,project);
 				switchOffMenuOption("swapmap");
+				// also show the cesium layer 
+				showDiv('cesiumWrapper');
 				break;
 			case "BOTH":
 				zoomToLeafletExtents(result, project);
@@ -76,7 +78,7 @@ function zoomToExtents(project, url){
 }
 
 
-function loadLayers(project,projectURL){
+function loadLayers(project,projectURL, projectDimension){
 	// get the URL of the data broker first
 	const params = Object.fromEntries(new URLSearchParams(location.search));
 	if (params['databrokerAPI']) {
@@ -92,14 +94,14 @@ function loadLayers(project,projectURL){
 				// once complete add the layer to the layer control list
 				let dataURL = result;
 				let url=projectURL+"/layerlist/"+project;
-				loadEachLayer(project, url,dataURL);
+				loadEachLayer(project, url,dataURL, projectDimension);
 				} // end of the success function
 			});
     } // data location param is in the URL
 } // end of loadlayers
 
 
-function loadEachLayer(project, url, dataURL){
+function loadEachLayer(project, url, dataURL, projectDimension){
 			// get the layer list using the project url
 
 			$.ajax({dataType:"json", url: url, crossDomain: true,success: function(result){
@@ -118,12 +120,13 @@ function loadEachLayer(project, url, dataURL){
 		   				// we need to send the centre point of the screen
 		   				layerUrl = url+"/external/API/vector/"+feature.properties.layer_source+"/"+feature.properties.layer_type+"/"+feature.properties.id;
 		   			}
-		   			if (feature.properties.dimension="2D"){
+		   			if (feature.properties.dimension=="2D" && (projectDimension=="2D" || projectDimension=="Both")){
 		   				load2DLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
 		   			}
-
-		   			// load all the layers in 3D no matter what
-		   			loadCesiumLayer(layerUrl, feature.properties.table_name,layername, feature.properties.layer_type,false);
+		   			if (projectDimension=="3D" || projectDimension=="Both"){
+		   				console.log("3D loading now");
+			   			loadCesiumLayer(layerUrl, feature,false);
+		    		}
 		    	}
 			} // end of the succes function
 			});

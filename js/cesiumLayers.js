@@ -24,33 +24,71 @@ function zoomToCesiumExtents(boundingBox, project){
  * can be a 2d or 3d layer
  * 
  */
-function loadCesiumLayer(url, tablename,layerName, layerType,fitBounds){
+function loadCesiumLayer(url, feature,fitBounds){
+	console.log("layer type"+feature.properties.layer_type);
 
-	if (layerType == "tileset"){
+	if (feature.properties.layer_type == "tileset"){
 	    loadTileset()
     	.then(
 			(tileSet) =>{
 		    	viewer.scene.primitives.add(tileSet);   
 		    });
 	}
-	if (layerType =="vector"){
-		loadGeoJSON()
+	if (feature.properties.layer_type =="vector"){
+		loadGeoJSON(url,feature)
     	.then(
-			(tileSet) =>{
-		    	viewer.scene.primitives.add(tileSet);   
+			(dataSource) =>{
+                  viewer.dataSources.add(dataSource);
 		    });
 
 	}
 
 }
 
-loadGeoJSON = ()=> {
+loadGeoJSON = (url,feature)=> {
 	return new Promise((resolve, reject) => {
-   	    const tileSet = Cesium.createOsmBuildingsAsync();
-   	    resolve(tileSet);
+            var layerURL = url; 
+            console.log(layerURL);
+            var dataSource = new Cesium.GeoJsonDataSource(feature.properties.feature_type);
+			console.log(feature.properties.layer_colour);
+			var options = [];
+				options.push({
+    			fill:feature.properties.layer_colour,
+    			strokewidth:3
+			});
+			let fillColor = Cesium.Color.fromCssColorString(feature.properties.layer_colour).withAlpha(feature.properties.layer_transparency);
+			let borderColor = Cesium.Color.fromCssColorString('black').withAlpha(feature.properties.layer_transparency);
+			let markerSymbol = '?';
 
+			console.log(options);
+            let geoJSONOptions = {
+              stroke: borderColor,
+                  fill: fillColor ,
+                  strokeWidth: 3,
+                  markerSymbol: markerSymbol,
+            }
+			console.log(geoJSONOptions);
+            dataSource._name = feature.properties.feature_type;
+            let layername = feature.properties.feature_type;
+            let i=cesiumLayers.length;
+            cesiumLayers[i]=dataSource.load(layerURL,geoJSONOptions )
+            	.then(function(dataSource,layername){
+            		cesiumLayers[i].name = feature.properties.feature_type;       
+		            // use a promise approach so that some functionlaity
+        		    // can be run once the layer is loaded
+//             		layernamex[i] =feature.properties.feature_type;
+//            		console.log("layer name is "+layernamex[i]);
+		            console.log("just before setting the name"+feature.properties.feature_type);
+       		        dataSource.clampToGround=false;
+                    dataSource._name = feature.properties.feature_type;
+			        let entities = dataSource.entities.values;
+        			console.log(entities);
+        			resolve(dataSource);
+				})
+            	.catch(function(error) {
+    				console.log(error);
+    			});
     }); // end of the promise
-
 }
 
 loadTileset = () => {

@@ -4,6 +4,7 @@
  * 
  */
 let viewer;
+let cesiumLayers=[];
 
 /** 
 *  @function showCesium
