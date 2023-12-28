@@ -15,6 +15,11 @@ let layerControl; // the leaflet layer control
 /*--snippet1m-end*/
 
 
+/*--snippet2m-start*/
+/**
+ * function to load a leaflet map in to an existing DIV, with OSM baselayer and a default layer control created for later use
+ */
+
 function loadMap() {
 
     // note the ordering of events below - the load event is set when the map is first initiatlised i.e. zoom etc set
@@ -41,9 +46,10 @@ function loadMap() {
 });
 
 } // end loadMap
+/*--snippet2m-end*/
 
 
-
+/*--snippet3m-start*/
 /** 
 *  @function showLeaflet
 *  show the div with the cesium map loaded
@@ -54,3 +60,4 @@ function showLeaflet() {
         showDiv('mapWrapper');
 
 }
+/*--snippet3m-end*/
