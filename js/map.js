@@ -15,7 +15,6 @@ let layerControl; // the leaflet layer control
 /*--snippet1m-end*/
 
 
-/*--snippet2m-start*/
 /**
  * function to load a leaflet map in to an existing DIV, with OSM baselayer and a default layer control created for later use
  */
@@ -39,7 +38,6 @@ function loadMap() {
 
     layerControl = L.control.layers(baseMaps,overlayMaps).addTo(mymap);
 
-/*--snippet2m-end*/
 
 
 // add a function to show the coordinates of where the user clicks on the map
