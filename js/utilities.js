@@ -1,3 +1,6 @@
+/*--snippet2u-start*/
+"use strict"
+/*--snippet2u-end*/
 /**
  * Function to redraw all the DIVs if the user has resized the browser window manually
 */
@@ -63,7 +66,7 @@ function showDiv(divName){
 }
 
 
-
+/*--snippet1u-start*/
 /**
 * function to load Cesium and Leaflet maps when the page load has completed
 * 
@@ -73,5 +76,11 @@ function showDiv(divName){
 document.addEventListener('DOMContentLoaded', function() {
   console.log("listener domcontentloaded");
   loadMap();
+/*--snippet1u-end*/
+
+
   loadCesium();
+/*--snippet3u-start*/
+
 }, false);
+/*--snippet3u-end*/
