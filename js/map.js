@@ -39,14 +39,19 @@ function loadMap() {
 
     layerControl = L.control.layers(baseMaps,overlayMaps).addTo(mymap);
 
+/*--snippet2m-end*/
+
+
 // add a function to show the coordinates of where the user clicks on the map
     mymap.on('click', function(e) {
     //alert("Clicked on Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
      document.getElementById("clickCoordinates").innerHTML = "Clicked on Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng;
 });
 
+/*--snippet4m-start*/
+
 } // end loadMap
-/*--snippet2m-end*/
+/*--snippet4m-end*/
 
 
 /*--snippet3m-start*/
