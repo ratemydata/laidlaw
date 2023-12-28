@@ -1,6 +1,20 @@
 "use strict";
+/*--snippet1m-start*/
+/**
+ * variable to store the leaflet map so that we can get hold of the map and make changes via code
+ */
 let mymap; // stores the leaflet map
+
+
+
+
+/**
+ * variable to store the leaflet layer control so that we can get hold of the map and make changes via code
+ */
 let layerControl; // the leaflet layer control
+/*--snippet1m-end*/
+
+
 function loadMap() {
 
     // note the ordering of events below - the load event is set when the map is first initiatlised i.e. zoom etc set
