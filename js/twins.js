@@ -53,10 +53,14 @@ function getProjectsURL(project){
 function getProjectDetails(project, url){
 	// call the API to get the project extents and zoom to them
 	let currentURL = url+"/projectDetails/"+project
+	console.log(currentURL);
     $.ajax({dataType:"json", url: currentURL, crossDomain: true,success: function(result){
     	console.log(result.features[0]);
     	let projectDimension = result.features[0].properties.dimension;
     	console.log(projectDimension);
+    	if (!projectDimension){
+    		projectDimension="BOTH";
+    	}
     	//zoomToLeafletExtents(result,project);
     	switch (projectDimension.toUpperCase()){
 			case "2D":
@@ -100,7 +104,7 @@ function loadLayers(project,projectURL, dimension){
 		let brokerURL = window.location.protocol+"//"+ window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")) + "/getDataBrokerAPI"
 		console.log(brokerURL);
 		console.log("pjrect diemnsion before layer load starts "+projectDimension);
-    		$.ajax({url: brokerURL, crossDomain: true,success: succcessCallback});
+    		$.ajax({url: brokerURL, crossDomain: true,success: successCallback});
 		
 		function successCallback (result){
     			// load the data 
@@ -147,11 +151,11 @@ function loadEachLayer(project, url, dataURL, projectDimension){
 				console.log(layerUrl);
 				console.log("feature dimension "+feature.properties.dimension);
 				console.log("project dimension "+projectDimension);
-		   			if (feature.properties.dimension=="2D" && (projectDimension=="2D" || projectDimension=="Both")){
+		   			if (feature.properties.dimension=="2D" && (projectDimension.toUpperCase()=="2D" || projectDimension.toUpperCase()=="BOTH")){
 						console.log("loading 2D");
 		   				load2DLayer(layerUrl, feature, false);
 		   			}
-		   			if (projectDimension=="3D" || projectDimension=="Both"){
+		   			if (projectDimension=="3D" || projectDimension.toUpperCase()=="BOTH"){
 						console.log("lodaing 3D");
 		   				console.log("3D loading now");
 			   			loadCesiumLayer(layerUrl, feature,false);

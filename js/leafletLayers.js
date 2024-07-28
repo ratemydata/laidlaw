@@ -33,6 +33,7 @@ function load2DLayer(url, feature, fitBounds){
 			 // different load methods depending on the type of data being loaded
 			switch (layerType) {
 					case "vector":
+						console.log("vector "+url);
 						loadGeoJSONLayer(url, feature, fitBounds);
 						break;
 					default: 
